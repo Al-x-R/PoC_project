@@ -1,6 +1,7 @@
-import React from 'react';
+import React, {useState} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Picture from "../Picture/Picture";
+import TextComponent from "../Text/TextComponent";
 
 const paperStyle = {
     width: '500px',
@@ -14,7 +15,8 @@ const Page = () => {
     return (
         <div>
             <Paper style={paperStyle}>
-                <Picture/>
+                <Picture  />
+                <TextComponent />
             </Paper>
         </div>
     );

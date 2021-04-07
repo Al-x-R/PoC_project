@@ -1,5 +1,5 @@
 import React, {FC} from 'react';
-import { Link } from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
@@ -13,24 +13,23 @@ const toolBarStyle = {
 const linkStyle = {
     textDecoration: 'none',
     padding: '10px',
-     color: 'white'
+    color: 'white'
 }
 
- const TopBar: FC = () => {
+const TopBar: FC = () => {
 
     return (
         <AppBar position="static">
             <Toolbar style={toolBarStyle}>
                 <div style={toolBarStyle}>
-                    <Button  style={linkStyle} component={Link} to='/edit'>
+                    <Button style={linkStyle} component={Link} to='/edit'>
                         Edit Book
                     </Button>
-                    <Button  style={linkStyle} component={Link} to='/'>
+                    <Button style={linkStyle} component={Link} to='/'>
                         Read Book
                     </Button>
                 </div>
-
-                <TopBarMenu />
+                <TopBarMenu/>
             </Toolbar>
         </AppBar>
     );

@@ -1,13 +1,8 @@
-import React, {useState, useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
+import Typography from '@material-ui/core/Typography';
 import Moveable from "react-moveable";
 
-const pictureStyles = {
-    width: '300px',
-    height: '200px',
-    objectFit: 'cover'
-} as React.CSSProperties
-
-const Picture = () => {
+const TextComponent = () => {
     const [isSelected, setIsSelected] = useState(false)
     const [target, setTarget] = useState('');
     const [frame] = useState({
@@ -18,7 +13,7 @@ const Picture = () => {
     const moveableRef = useRef(null);
 
     useEffect(() => {
-        const target = document.querySelector<HTMLImageElement>(".target");
+        const target = document.querySelector<HTMLImageElement>(".targetText");
         // @ts-ignore
         setTarget(target);
 
@@ -32,10 +27,12 @@ const Picture = () => {
     }, []);
 
     return (
-        <div style={pictureStyles} onClick={() => setIsSelected(!isSelected)}>
-            <img className="target" style={pictureStyles}
-                 src='https://res.cloudinary.com/css-tricks/image/fetch/w_1200,q_auto,f_auto/https://css-tricks.com/wp-content/uploads/2020/09/react-suspense.png'
-                 alt='picture'/>
+        <div onClick={() => setIsSelected(!isSelected)}>
+            <Typography variant="body1" gutterBottom className="targetText">
+                body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+                unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
+                dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam
+            </Typography>
             {isSelected &&
             <Moveable
               ref={moveableRef}
@@ -76,7 +73,8 @@ const Picture = () => {
             />
             }
         </div>
+
     );
 };
 
-export default Picture;
+export default TextComponent;
