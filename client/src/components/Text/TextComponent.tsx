@@ -1,6 +1,7 @@
 import React, {useEffect, useRef, useState} from 'react';
-import Typography from '@material-ui/core/Typography';
 import Moveable from "react-moveable";
+import Typography from '@material-ui/core/Typography';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const TextComponent = () => {
     const [isSelected, setIsSelected] = useState(false)
@@ -28,11 +29,13 @@ const TextComponent = () => {
 
     return (
         <div onClick={() => setIsSelected(!isSelected)}>
-            <Typography variant="body1" gutterBottom className="targetText">
-                body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
-                unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
-                dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam
-            </Typography>
+            <ClickAwayListener onClickAway={() => setIsSelected(false)}>
+                <Typography variant="body1" gutterBottom className="targetText">
+                    body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur
+                    unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam
+                    dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam
+                </Typography>
+            </ClickAwayListener>
             {isSelected &&
             <Moveable
               ref={moveableRef}
