@@ -1,4 +1,4 @@
-import React, {useState, useEffect,useRef} from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import Moveable from "react-moveable";
 
 const pictureStyles = {
@@ -31,8 +31,10 @@ const Picture = () => {
     }, []);
 
     return (
-        <div style={pictureStyles} >
-            <img className="target" style={pictureStyles} src='https://res.cloudinary.com/css-tricks/image/fetch/w_1200,q_auto,f_auto/https://css-tricks.com/wp-content/uploads/2020/09/react-suspense.png' alt='picture'/>
+        <div style={pictureStyles}>
+            <img className="target" style={pictureStyles}
+                 src='https://res.cloudinary.com/css-tricks/image/fetch/w_1200,q_auto,f_auto/https://css-tricks.com/wp-content/uploads/2020/09/react-suspense.png'
+                 alt='picture'/>
             <Moveable
                 ref={moveableRef}
                 target={target}
@@ -43,28 +45,28 @@ const Picture = () => {
                 rotatable={true}
                 rotationPosition={"top"}
                 throttleRotate={0}
-                onDragStart={({ set }) => {
+                onDragStart={({set}) => {
                     set(frame.translate);
                 }}
-                onDrag={({ beforeTranslate }) => {
+                onDrag={({beforeTranslate}) => {
                     frame.translate = beforeTranslate;
                 }}
-                onResizeStart={({ setOrigin, dragStart }) => {
+                onResizeStart={({setOrigin, dragStart}) => {
                     setOrigin(["%", "%"]);
                     dragStart && dragStart.set(frame.translate);
                 }}
-                onResize={({ target, width, height, drag }) => {
+                onResize={({target, width, height, drag}) => {
                     frame.translate = drag.beforeTranslate;
                     target.style.width = `${width}px`;
                     target.style.height = `${height}px`;
                 }}
-                onRotateStart={({ set }) => {
+                onRotateStart={({set}) => {
                     set(frame.rotate);
                 }}
-                onRotate={({ beforeRotate }) => {
+                onRotate={({beforeRotate}) => {
                     frame.rotate = beforeRotate;
                 }}
-                onRender={({ target }) => {
+                onRender={({target}) => {
                     target.style.transform = `translate(${frame.translate[0]}px, ${
                         frame.translate[1]
                     }px) rotate(${frame.rotate}deg)`;
