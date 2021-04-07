@@ -5,14 +5,18 @@ import Picture from "../Picture/Picture";
 const paperStyle = {
     width: '500px',
     height: '500px',
-    border: 'solid'
+    border: 'solid',
+    // overflow: 'hidden'
 }
 
 const Page = () => {
+
     return (
-        <Paper style={paperStyle}>
-            <Picture />
-        </Paper>
+        <div>
+            <Paper style={paperStyle}>
+                <Picture />
+            </Paper>
+        </div>
     );
 };
 
