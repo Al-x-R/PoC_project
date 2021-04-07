@@ -1,7 +1,6 @@
 import React from 'react';
 import Paper from '@material-ui/core/Paper';
 import Picture from "../Picture/Picture";
-import TextCreate from "../Text/TextCreate";
 
 const paperStyle = {
     width: '500px',
