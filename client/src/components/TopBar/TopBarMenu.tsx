@@ -3,8 +3,8 @@ import Button from '@material-ui/core/Button';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import AddIcon from '@material-ui/icons/Add';
-import TextFieldsIcon from '@material-ui/icons/TextFields';
 import SettingsVoiceIcon from '@material-ui/icons/SettingsVoice';
+import TextCreate from "../Text/TextCreate";
 
 const iconColor = { color: 'white'}
 
@@ -21,7 +21,7 @@ export const TopBarMenu: FC = () => {
 
     return (
         <div>
-            <Button aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
+            <Button fullWidth aria-controls="simple-menu" aria-haspopup="true" onClick={handleClick}>
                 <AddIcon style={iconColor}/>
             </Button>
             <Menu
@@ -31,7 +31,7 @@ export const TopBarMenu: FC = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}><TextFieldsIcon/> Text</MenuItem>
+                <MenuItem onClick={handleClose}><TextCreate /></MenuItem>
                 <MenuItem onClick={handleClose}><SettingsVoiceIcon/> Record</MenuItem>
             </Menu>
         </div>
