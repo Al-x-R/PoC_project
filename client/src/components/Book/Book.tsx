@@ -1,5 +1,6 @@
 import React, {FC} from 'react';
 import Page from "../Page/Page";
+import {TextStore} from "../../stores/text";
 
 const pageStyle = {
     display: 'flex',
@@ -11,7 +12,7 @@ const pageStyle = {
 const Book: FC = () => {
     return (
         <div style={pageStyle}>
-            <Page />
+            <Page textStore={TextStore}/>
         </div>
     );
 };

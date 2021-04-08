@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useRef, FC} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -10,6 +10,12 @@ import FormatBoldIcon from '@material-ui/icons/FormatBold';
 import FormatItalicIcon from '@material-ui/icons/FormatItalic';
 import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
 import TextFieldsIcon from "@material-ui/icons/TextFields";
+
+import {TextItemImpl} from "../../stores/text";
+
+interface TextsListProps {
+    textStore: TextItemImpl
+}
 
 
 const useStyles = makeStyles({
@@ -36,9 +42,14 @@ const TextCreate = () => {
         setOpen(false);
     };
 
+    const done = () => {
+        textStore.addText(text)
+        setOpen(false);
+    }
+
     return (
         <div>
-            <Button  onClick={handleClickOpen}>
+            <Button onClick={handleClickOpen}>
                 <TextFieldsIcon/> Text
             </Button>
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
@@ -58,7 +69,7 @@ const TextCreate = () => {
                     <Button autoFocus onClick={handleClose} color="primary">
                         Cancel
                     </Button>
-                    <Button autoFocus onClick={handleClose} color="primary">
+                    <Button autoFocus onClick={done} color="primary">
                         done
                     </Button>
                 </DialogActions>

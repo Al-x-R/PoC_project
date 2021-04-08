@@ -6,6 +6,8 @@ import AddIcon from '@material-ui/icons/Add';
 import SettingsVoiceIcon from '@material-ui/icons/SettingsVoice';
 import TextCreate from "../Text/TextCreate";
 
+import {TextStore} from "../../stores/text";
+
 const iconColor = { color: 'white'}
 
 export const TopBarMenu: FC = () => {
@@ -31,7 +33,7 @@ export const TopBarMenu: FC = () => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}><TextCreate /></MenuItem>
+                <MenuItem onClick={handleClose}><TextCreate textStore={TextStore} /></MenuItem>
                 <MenuItem onClick={handleClose}><SettingsVoiceIcon/> Record</MenuItem>
             </Menu>
         </div>

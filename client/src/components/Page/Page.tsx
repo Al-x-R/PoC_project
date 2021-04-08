@@ -1,7 +1,10 @@
-import React, {useState} from 'react';
+import React, {FC} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Picture from "../Picture/Picture";
 import TextComponent from "../Text/TextComponent";
+
+import {observer} from "mobx-react-lite";
+import {TextItemImpl} from "../../stores/text";
 
 const paperStyle = {
     width: '500px',
@@ -10,16 +13,23 @@ const paperStyle = {
     // overflow: 'hidden'
 }
 
-const Page = () => {
+interface TextsListProps {
+    textStore: TextItemImpl
+}
+
+const Page: FC<TextsListProps> = observer(({textStore} )=> {
 
     return (
         <div>
             <Paper style={paperStyle}>
                 <Picture  />
-                <TextComponent />
+                {textStore.texts.map(t => {
+                    return <TextComponent key={t.id} text={t.text}/>
+                })}
+
             </Paper>
         </div>
     );
-};
+});
 
 export default Page;

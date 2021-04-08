@@ -33,11 +33,11 @@ const Picture = () => {
     }, []);
 
     return (
-        <div style={pictureStyles} onClick={() => setIsSelected(!isSelected)}>
+        <div style={pictureStyles} onClick={() => setIsSelected(true)}>
             <ClickAwayListener onClickAway={() => setIsSelected(false)}>
                 <img className="target" style={pictureStyles}
                      src='https://res.cloudinary.com/css-tricks/image/fetch/w_1200,q_auto,f_auto/https://css-tricks.com/wp-content/uploads/2020/09/react-suspense.png'
-                     alt='picture'/>
+                     alt=''/>
             </ClickAwayListener>
             {isSelected &&
             <Moveable
