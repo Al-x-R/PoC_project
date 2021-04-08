@@ -26,11 +26,19 @@ const useStyles = makeStyles({
         "&&:after": {
             borderBottom: "none"
         }
-    }
+    },
 });
 
-const TextCreate = () => {
+const TextCreate: FC<TextsListProps> = ({textStore}) => {
     const classes = useStyles();
+    const [text, setText] = useState('')
+
+    // console.log(text.split(''))
+    // const value = text.split('').join('')
+
+    const [isBold, setIsBold] = useState(false)
+    const [isItalic, setIsItalic] = useState(false)
+    const [isUnderline, setIsUnderline] = useState(false)
 
     const [open, setOpen] = React.useState(false);
 
@@ -54,14 +62,31 @@ const TextCreate = () => {
             </Button>
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                 <DialogTitle id="customized-dialog-title">
-                    <FormatBoldIcon/><FormatItalicIcon/><FormatUnderlinedIcon/>
+                    <FormatBoldIcon onClick={() => setIsBold(!isBold)}
+                                    style={{ fontSize: isBold ? 27 : 23,}}
+                    />
+                    <FormatItalicIcon onClick={() => setIsItalic(!isItalic)}
+                                      style={{ fontSize: isItalic ? 27 : 23 }}
+                    />
+                    <FormatUnderlinedIcon onClick={() => setIsUnderline(!isUnderline)}
+                                          style={{ fontSize: isUnderline ? 27 : 23 }}
+                    />
                 </DialogTitle>
                 <DialogContent dividers>
                     <TextField
                         autoFocus
+                        onChange={(e) => setText(e.target.value)}
+                        // value={value}
+                        // contentEditable="true"
                         margin="dense"
-                        id="name"
-                        InputProps={{classes}}
+                        id="text"
+                        InputProps={{
+                            classes, style: {
+                                fontWeight: isBold ? 'bold' : 'normal',
+                                fontStyle: isItalic ? 'italic' : 'normal',
+                                textDecoration: isUnderline ? 'underline' : 'none',
+                            }
+                        }}
                         fullWidth
                     />
                 </DialogContent>
