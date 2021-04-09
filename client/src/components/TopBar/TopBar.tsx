@@ -1,5 +1,5 @@
-import React, {FC} from 'react';
-import {Link} from 'react-router-dom';
+import React, {useEffect, useState} from 'react';
+import {Link, useLocation} from 'react-router-dom';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
 import Button from '@material-ui/core/Button';
@@ -16,7 +16,13 @@ const linkStyle = {
     color: 'white'
 }
 
-const TopBar: FC = () => {
+const TopBar = () => {
+    const [isEdit, setIsEdit] = useState(false)
+    const location = useLocation();
+
+    useEffect(() => {
+        setIsEdit(location.pathname === '/edit');
+    }, [location.pathname]);
 
     return (
         <AppBar position="static">
@@ -29,7 +35,7 @@ const TopBar: FC = () => {
                         Read Book
                     </Button>
                 </div>
-                <TopBarMenu/>
+                {isEdit && <TopBarMenu/>}
             </Toolbar>
         </AppBar>
     );

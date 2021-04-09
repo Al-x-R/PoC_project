@@ -4,7 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 // @ts-ignore
-const TextComponent = ({text}) => {
+const TextComponent = ({textItem}) => {
     const [isSelected, setIsSelected] = useState(false)
     const [target, setTarget] = useState('');
     const [frame] = useState({
@@ -15,29 +15,31 @@ const TextComponent = ({text}) => {
     const moveableRef = useRef(null);
 
     useEffect(() => {
-        const target = document.querySelector<HTMLImageElement>(".targetText");
+        const target = document.querySelectorAll<HTMLElement>(".targetText");
         // @ts-ignore
         setTarget(target);
 
         // @ts-ignore
-        target.addEventListener("load", () => {
-            setTimeout(() => {
-                // @ts-ignore
-                moveableRef.current.updateRect();
-            }, 2000);
-        });
+        // target.addEventListener("load", () => {
+        //     setTimeout(() => {
+        //         // @ts-ignore
+        //         moveableRef.current.updateRect();
+        //     }, 2000);
+        // });
     }, []);
 
     return (
-        <div onClick={() => setIsSelected(true)}>
+        <div onClick={(e) => {
+            setIsSelected(true)
+        }}>
             <ClickAwayListener onClickAway={() => setIsSelected(false)}>
-                <Typography variant="body1" gutterBottom className="targetText">
-                    {text}
+                <Typography variant="body1" gutterBottom className="targetText" id={textItem.id}>
+                    {textItem.text}
                 </Typography>
             </ClickAwayListener>
             {isSelected &&
             <Moveable
-              ref={moveableRef}
+              // ref={moveableRef}
               target={target}
               draggable={true}
               throttleDrag={0}

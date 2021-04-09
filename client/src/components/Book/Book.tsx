@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React from 'react';
 import Page from "../Page/Page";
 import {TextStore} from "../../stores/text";
 
@@ -9,7 +9,7 @@ const pageStyle = {
     marginTop: '150px'
 }
 
-const Book: FC = () => {
+const Book = () => {
     return (
         <div style={pageStyle}>
             <Page textStore={TextStore}/>
