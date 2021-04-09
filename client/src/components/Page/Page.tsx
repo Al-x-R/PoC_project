@@ -5,6 +5,8 @@ import TextComponent from '../Text/TextComponent';
 
 import {observer} from 'mobx-react-lite';
 import {TextItemImpl} from '../../stores/text';
+import {AudioStore} from "../../stores/audio";
+import AudioItem from "../AudioItem/AudioItem";
 
 const paperStyle = {
     width: '500px',
@@ -25,6 +27,9 @@ const Page: FC<TextsListProps> = observer(({textStore}) => {
                 <Picture/>
                 {textStore.texts.map(t => {
                     return <TextComponent key={t.id} textItem={t}/>
+                })}
+                {AudioStore.audios.map((item , index)=> {
+                    return <AudioItem key={item.id} url={item.mediaBlobUrl} />
                 })}
             </Paper>
         </div>

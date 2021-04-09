@@ -12,7 +12,6 @@ export class MenuState {
 
     toggleIsAudio = (value: boolean) => {
         this.isAudio = value
-        console.log(value)
     }
 
 }

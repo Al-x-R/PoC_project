@@ -15,6 +15,7 @@ import DialogActions from "@material-ui/core/DialogActions";
 
 import {observer} from "mobx-react-lite";
 import {MenuStore} from "../../stores/menu";
+import {AudioStore} from "../../stores/audio";
 
 const toolBarStyles = {
     backgroundColor: 'white',
@@ -27,7 +28,6 @@ const recordButtonStyles = {
     backgroundColor: yellow[600],
     borderRadius: '8px'
 }
-
 
 const AudioRecorder = observer(() => {
     const [isRecording, setIsRecording] = useState(false)
@@ -61,6 +61,14 @@ const AudioRecorder = observer(() => {
         }
     }
 
+    const saveAudio = () => {
+        if (mediaBlobUrl) {
+            AudioStore.addAudio(mediaBlobUrl)
+            MenuStore.toggleIsAudio(false)
+            setOpen(false);
+        }
+    }
+
     return (
         <div>
             <AppBar position="static">
@@ -91,9 +99,8 @@ const AudioRecorder = observer(() => {
                 <Button onClick={handleClose} color="primary">
                   Delete
                 </Button>
-                <Button onClick={handleClose} color="primary" autoFocus>
+                <Button onClick={saveAudio} color="primary" autoFocus>
                   USE RECORDING
-                    {/* Add record to store*/}
                 </Button>
               </DialogActions>
             </Dialog>
