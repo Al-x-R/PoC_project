@@ -7,6 +7,7 @@ import {observer} from 'mobx-react-lite';
 import {TextItemImpl} from '../../stores/text';
 import {AudioStore} from "../../stores/audio";
 import AudioItem from "../AudioItem/AudioItem";
+import CountDown from "../CountDown/CountDown";
 
 const paperStyle = {
     width: '500px',
@@ -31,6 +32,7 @@ const Page: FC<TextsListProps> = observer(({textStore}) => {
                 {AudioStore.audios.map((item , index)=> {
                     return <AudioItem key={item.id} url={item.mediaBlobUrl} />
                 })}
+                <CountDown />
             </Paper>
         </div>
     );
