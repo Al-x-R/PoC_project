@@ -9,27 +9,30 @@ import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import MicIcon from '@material-ui/icons/Mic';
 import {yellow} from '@material-ui/core/colors'
 import Dialog from "@material-ui/core/Dialog";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogActions from "@material-ui/core/DialogActions";
+import DialogTitle from '@material-ui/core/DialogTitle';
+import DialogContent from '@material-ui/core/DialogContent';
+import DialogActions from '@material-ui/core/DialogActions';
+import {makeStyles} from '@material-ui/core/styles';
 
-import {observer} from "mobx-react-lite";
-import {MenuStore} from "../../stores/menu";
-import {AudioStore} from "../../stores/audio";
+import {observer} from 'mobx-react-lite';
+import {MenuStore} from '../../stores/menu';
+import {AudioStore} from '../../stores/audio';
 
-const toolBarStyles = {
-    backgroundColor: 'white',
-    color: 'black',
-    display: 'flex',
-    justifyContent: 'space-between'
-}
-
-const recordButtonStyles = {
-    backgroundColor: yellow[600],
-    borderRadius: '8px'
-}
+const useStyles = makeStyles({
+    toolBarStyles: {
+        backgroundColor: 'white',
+        color: 'black',
+        display: 'flex',
+        justifyContent: 'space-between'
+    },
+    recordButtonStyles: {
+        backgroundColor: yellow[600],
+        borderRadius: '8px'
+    }
+});
 
 const AudioRecorder = observer(() => {
+    const classes = useStyles();
     const [isRecording, setIsRecording] = useState(false)
     const [open, setOpen] = useState(false);
 
@@ -72,14 +75,14 @@ const AudioRecorder = observer(() => {
     return (
         <div>
             <AppBar position="static">
-                <Toolbar style={toolBarStyles}>
+                <Toolbar className={classes.toolBarStyles}>
                     <IconButton edge="start" color="inherit" aria-label="menu" onClick={() => MenuStore.toggleIsAudio(false)}>
                         <ArrowBackIosIcon/> Cancel
                     </IconButton>
                     <Typography variant="h6">
                         Record Sound
                     </Typography>
-                    <Button style={recordButtonStyles} onClick={handlerRecordButtonClick}><MicIcon/>{recordButtonTitle}
+                    <Button className={classes.recordButtonStyles} onClick={handlerRecordButtonClick}><MicIcon/>{recordButtonTitle}
                     </Button>
                 </Toolbar>
             </AppBar>

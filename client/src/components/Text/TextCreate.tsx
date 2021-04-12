@@ -17,7 +17,6 @@ interface TextsListProps {
     textStore: TextItemImpl
 }
 
-
 const useStyles = makeStyles({
     underline: {
         "&&&:before": {
