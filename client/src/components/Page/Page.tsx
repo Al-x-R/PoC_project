@@ -8,6 +8,7 @@ import {TextItemImpl} from '../../stores/text';
 import {AudioStore} from "../../stores/audio";
 import AudioItem from "../AudioItem/AudioItem";
 import CountDown from "../CountDown/CountDown";
+import Timer from "../Timer/Timer";
 
 const paperStyle = {
     width: '500px',
@@ -33,6 +34,7 @@ const Page: FC<TextsListProps> = observer(({textStore}) => {
                     return <AudioItem key={item.id} url={item.mediaBlobUrl} />
                 })}
                 <CountDown />
+                <Timer />
             </Paper>
         </div>
     );
