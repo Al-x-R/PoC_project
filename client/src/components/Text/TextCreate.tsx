@@ -1,4 +1,4 @@
-import React, {useState, FC} from 'react';
+import React, {useState, FC, useRef, useEffect} from 'react';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
@@ -14,7 +14,8 @@ import TextFieldsIcon from "@material-ui/icons/TextFields";
 import {TextItemImpl} from "../../stores/text";
 
 interface TextsListProps {
-    textStore: TextItemImpl
+    textStore: TextItemImpl,
+    ref: HTMLElement | null
 }
 
 const useStyles = makeStyles({
@@ -30,16 +31,24 @@ const useStyles = makeStyles({
 
 const TextCreate: FC<TextsListProps> = ({textStore}) => {
     const classes = useStyles();
-    const [text, setText] = useState('')
-
-    // console.log(text.split(''))
-    // const value = text.split('').join('')
+    const [value, setValue] = useState('')
 
     const [isBold, setIsBold] = useState(false)
     const [isItalic, setIsItalic] = useState(false)
     const [isUnderline, setIsUnderline] = useState(false)
 
     const [open, setOpen] = React.useState(false);
+
+    const inputRef = useRef<HTMLDivElement | null>(null)
+
+    useEffect(() => {
+        inputRef.current
+    },[])
+    // console.log(inputRef.current)
+
+    // let cursorStart = textVal.selectionStart;
+    // let cursorEnd = textVal.selectionEnd;
+    // this.state.textareaVal.substring(cursorStart,cursorEnd)
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -50,8 +59,29 @@ const TextCreate: FC<TextsListProps> = ({textStore}) => {
     };
 
     const done = () => {
-        textStore.addText(text)
+        textStore.addText(value)
         setOpen(false);
+    }
+
+    const onBoldClick = () => {
+        setIsBold(!isBold)
+        if (isBold) {
+            return `<b>${value}</b>`
+        }
+    }
+
+    const onItalicClick = () => {
+        setIsItalic(!isItalic)
+        if (isItalic) {
+            return `<i>${value}</i>`
+        }
+    }
+
+    const onUnderlineClick =() => {
+        setIsUnderline(!isUnderline)
+        if (isUnderline) {
+            return `<u>${value}</u>`
+        }
     }
 
     return (
@@ -61,23 +91,24 @@ const TextCreate: FC<TextsListProps> = ({textStore}) => {
             </Button>
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
                 <DialogTitle id="customized-dialog-title">
-                    <FormatBoldIcon onClick={() => setIsBold(!isBold)}
+                    <FormatBoldIcon onClick={onBoldClick}
                                     style={{ fontSize: isBold ? 27 : 23,}}
                     />
-                    <FormatItalicIcon onClick={() => setIsItalic(!isItalic)}
+                    <FormatItalicIcon onClick={onItalicClick}
                                       style={{ fontSize: isItalic ? 27 : 23 }}
                     />
-                    <FormatUnderlinedIcon onClick={() => setIsUnderline(!isUnderline)}
+                    <FormatUnderlinedIcon onClick={onUnderlineClick}
                                           style={{ fontSize: isUnderline ? 27 : 23 }}
                     />
                 </DialogTitle>
                 <DialogContent dividers>
                     <TextField
+                        ref={inputRef}
                         autoFocus
-                        onChange={(e) => setText(e.target.value)}
-                        // value={value}
-                        // contentEditable="true"
+                        onChange={(e) => setValue(e.target.value)}
+                        value={value}
                         margin="dense"
+                        multiline
                         id="text"
                         InputProps={{
                             classes, style: {
