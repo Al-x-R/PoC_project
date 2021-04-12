@@ -1,5 +1,8 @@
 import React, {useEffect, useState} from 'react';
 import {makeStyles} from '@material-ui/core/styles';
+import MicIcon from '@material-ui/icons/Mic';
+import {observer} from 'mobx-react-lite';
+import {MenuStore} from '../../stores/menu';
 
 const useStyles = makeStyles({
     timer: {
@@ -8,24 +11,23 @@ const useStyles = makeStyles({
     },
     timerItem: {
         fontSize: 20,
-        color: 'grey',
+        color: 'white',
         padding: '3px'
     }
 });
 
-
-const Timer = () => {
+const Timer = observer(() => {
     const classes = useStyles()
+
     const [second, setSecond] = useState('00');
     const [minute, setMinute] = useState('00');
     const [hour, setHour] = useState('00');
-    const [isActive, setIsActive] = useState(false);
-    const [counter, setCounter] = useState(8000);
+    const [counter, setCounter] = useState(1);
 
     useEffect(() => {
         let intervalId: any;
 
-        if (isActive) {
+        if (MenuStore.isStartRecording) {
             intervalId = setInterval(() => {
 
                 const computedSecond = `0${(counter % 60)}`.slice(-2);
@@ -41,21 +43,21 @@ const Timer = () => {
             }, 1000)
         }
 
-        return () => clearInterval(intervalId);
-    }, [isActive, counter])
+        return () => {
+            clearInterval(intervalId)
+        };
+    }, [counter])
 
     return (
         <div className={classes.timer}>
+            <MicIcon/>
             <span className={classes.timerItem}>{hour}</span>
             <span>:</span>
             <span className={classes.timerItem}>{minute}</span>
             <span>:</span>
             <span className={classes.timerItem}>{second}</span>
-
-            <button onClick={() => setIsActive(!isActive)} className="start">{isActive ? "Pause": "Start"}</button>
-            <button onClick={() => setCounter(0)} className="reset">Reset</button>
         </div>
     );
-};
+});
 
 export default Timer;

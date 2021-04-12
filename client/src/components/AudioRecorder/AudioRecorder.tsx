@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useReactMediaRecorder} from 'react-media-recorder';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -17,6 +17,8 @@ import {makeStyles} from '@material-ui/core/styles';
 import {observer} from 'mobx-react-lite';
 import {MenuStore} from '../../stores/menu';
 import {AudioStore} from '../../stores/audio';
+import CountDown from '../CountDown/CountDown';
+import Timer from '../Timer/Timer';
 
 const useStyles = makeStyles({
     toolBarStyles: {
@@ -25,15 +27,20 @@ const useStyles = makeStyles({
         display: 'flex',
         justifyContent: 'space-between'
     },
-    recordButtonStyles: {
+    startRecordingButtonStyles: {
         backgroundColor: yellow[600],
         borderRadius: '8px'
     }
 });
 
+const stopRecordingButtonStyles = {
+    backgroundColor: 'white',
+    borderRadius: '8px',
+    color: 'black'
+}
+
 const AudioRecorder = observer(() => {
     const classes = useStyles();
-    const [isRecording, setIsRecording] = useState(false)
     const [open, setOpen] = useState(false);
 
     const handleClickOpen = () => {
@@ -51,18 +58,21 @@ const AudioRecorder = observer(() => {
         mediaBlobUrl,
     } = useReactMediaRecorder({video: false});
 
-    const recordButtonTitle = isRecording ? 'Stop Recording' : 'Start Recording'
-
-    const handlerRecordButtonClick = () => {
-        if (!isRecording) {
-            setIsRecording(true)
-            startRecording()
-        } else {
-            setIsRecording(false)
-            stopRecording()
-            handleClickOpen()
-        }
+    const handlerStartRecordButtonClick = () => {
+        MenuStore.switchIsCountDown(true)
     }
+
+    const handlerStopRecordButtonClick = () => {
+        stopRecording()
+        MenuStore.switchIsStartRecording(false)
+        handleClickOpen()
+    }
+
+    useEffect(() => {
+        if (MenuStore.isStartRecording) {
+            startRecording()
+        }
+    }, [MenuStore.isStartRecording])
 
     const saveAudio = () => {
         if (mediaBlobUrl) {
@@ -75,18 +85,38 @@ const AudioRecorder = observer(() => {
     return (
         <div>
             <AppBar position="static">
-                <Toolbar className={classes.toolBarStyles}>
-                    <IconButton edge="start" color="inherit" aria-label="menu" onClick={() => MenuStore.toggleIsAudio(false)}>
-                        <ArrowBackIosIcon/> Cancel
-                    </IconButton>
+                <Toolbar className={classes.toolBarStyles}
+                         style={(MenuStore.isCountDown || MenuStore.isStartRecording) ? {
+                             backgroundColor: 'red',
+                             color: 'white'
+                         } : {backgroundColor: 'white'}}>
+                    {(!MenuStore.isCountDown && !MenuStore.isStartRecording) ?
+                        <IconButton edge="start" color="inherit" aria-label="menu"
+                                    onClick={() => MenuStore.toggleIsAudio(false)}>
+                            <ArrowBackIosIcon/> Cancel
+                        </IconButton> : <div/>
+                    }
+
+                    {(!MenuStore.isCountDown && !MenuStore.isStartRecording) &&
                     <Typography variant="h6">
-                        Record Sound
+                      Record Sound
                     </Typography>
-                    <Button className={classes.recordButtonStyles} onClick={handlerRecordButtonClick}><MicIcon/>{recordButtonTitle}
-                    </Button>
+                    }
+                    {MenuStore.isCountDown && <CountDown/>}
+                    {(MenuStore.isStartRecording) && <Timer/>}
+
+                    {(!MenuStore.isStartRecording && !MenuStore.isCountDown) &&
+                    <Button className={classes.startRecordingButtonStyles}
+                            onClick={handlerStartRecordButtonClick}><MicIcon/>Start Recording
+                    </Button>}
+                    {MenuStore.isCountDown && <div/>}
+                    {MenuStore.isStartRecording &&
+                    <Button style={stopRecordingButtonStyles}
+                            onClick={handlerStopRecordButtonClick}><MicIcon/>Stop Recording
+                    </Button>}
+
                 </Toolbar>
             </AppBar>
-            {/*<p>{status}</p>*/}
             {mediaBlobUrl &&
             <Dialog
               open={open}
