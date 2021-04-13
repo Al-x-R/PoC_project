@@ -1,6 +1,5 @@
 import React, {useState, FC, useRef, useEffect} from 'react';
-import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+import { Button, TextField } from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -15,7 +14,6 @@ import {TextItemImpl} from "../../stores/text";
 
 interface TextsListProps {
     textStore: TextItemImpl,
-    ref: HTMLElement | null
 }
 
 const useStyles = makeStyles({
@@ -31,24 +29,40 @@ const useStyles = makeStyles({
 
 const TextCreate: FC<TextsListProps> = ({textStore}) => {
     const classes = useStyles();
-    const [value, setValue] = useState('')
+    const [inputText, setInputText] = useState('')
+    const [selection, setSelection] = useState()
 
     const [isBold, setIsBold] = useState(false)
     const [isItalic, setIsItalic] = useState(false)
     const [isUnderline, setIsUnderline] = useState(false)
 
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
-    const inputRef = useRef<HTMLDivElement | null>(null)
 
-    useEffect(() => {
-        inputRef.current
-    },[])
-    // console.log(inputRef.current)
+    const inputRef = useRef<HTMLInputElement | null>(null)
+    if (inputRef.current?.selectionStart || inputRef.current?.selectionStart === null) {
+        let startpos = inputRef.current?.selectionStart;
+        let endpos = inputRef.current.selectionEnd;
 
-    // let cursorStart = textVal.selectionStart;
-    // let cursorEnd = textVal.selectionEnd;
-    // this.state.textareaVal.substring(cursorStart,cursorEnd)
+        inputRef.current.value  = inputRef.current.value.substring(Number(startpos)) + inputText + inputRef.current.value.substring(Number(endpos), inputRef.current.value.length);
+        inputRef.current.focus();
+
+        // @ts-ignore
+        setSelection(inputRef.current.value)
+
+    }
+    console.log(selection)
+
+    // let cursorStart = inputRef.current?.selectionStart;
+    // console.log('start', cursorStart)
+    // let cursorEnd = inputRef.current?.selectionEnd;
+    // console.log('end', cursorEnd)
+
+    // console.log('selection', selection)
+
+    const handleChange = ( e: any ) => {
+        setInputText(e.target.value)
+    }
 
     const handleClickOpen = () => {
         setOpen(true);
@@ -59,28 +73,28 @@ const TextCreate: FC<TextsListProps> = ({textStore}) => {
     };
 
     const done = () => {
-        textStore.addText(value)
+        textStore.addText(inputText)
         setOpen(false);
     }
 
     const onBoldClick = () => {
         setIsBold(!isBold)
         if (isBold) {
-            return `<b>${value}</b>`
+            return `<b>${inputText}</b>`
         }
     }
 
     const onItalicClick = () => {
         setIsItalic(!isItalic)
         if (isItalic) {
-            return `<i>${value}</i>`
+            return `<i>${inputText}</i>`
         }
     }
 
     const onUnderlineClick =() => {
         setIsUnderline(!isUnderline)
         if (isUnderline) {
-            return `<u>${value}</u>`
+            return `<u>${inputText}</u>`
         }
     }
 
@@ -105,8 +119,8 @@ const TextCreate: FC<TextsListProps> = ({textStore}) => {
                     <TextField
                         ref={inputRef}
                         autoFocus
-                        onChange={(e) => setValue(e.target.value)}
-                        value={value}
+                        onChange={handleChange}
+                        value={inputRef?.current?.value}
                         margin="dense"
                         multiline
                         id="text"

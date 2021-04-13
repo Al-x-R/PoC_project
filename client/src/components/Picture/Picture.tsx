@@ -1,6 +1,6 @@
-import React, {useState, useEffect, useRef} from 'react';
-import Moveable from "react-moveable";
-import ClickAwayListener from "@material-ui/core/ClickAwayListener";
+import React, {useState, useEffect} from 'react';
+import Moveable from 'react-moveable';
+import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 const pictureStyles = {
     width: '300px',
@@ -16,20 +16,10 @@ const Picture = () => {
         rotate: 0
     });
 
-    const moveableRef = useRef(null);
-
     useEffect(() => {
         const target = document.querySelector<HTMLImageElement>(".target");
         // @ts-ignore
         setTarget(target);
-
-        // @ts-ignore
-        target.addEventListener("load", () => {
-            setTimeout(() => {
-                // @ts-ignore
-                moveableRef.current.updateRect();
-            }, 2000);
-        });
     }, []);
 
     return (
@@ -41,7 +31,6 @@ const Picture = () => {
             </ClickAwayListener>
             {isSelected &&
             <Moveable
-              ref={moveableRef}
               target={target}
               draggable={true}
               throttleDrag={0}

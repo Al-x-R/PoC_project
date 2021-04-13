@@ -25,11 +25,11 @@ const Page: FC<TextsListProps> = observer(({textStore}) => {
         <div>
             <Paper style={paperStyle}>
                 <Picture/>
-                {textStore.texts.map(t => {
-                    return <TextComponent key={t.id} textItem={t}/>
+                {textStore.texts.map((t, index) => {
+                    return <TextComponent key={t.id} textItem={t} idx={index}/>
                 })}
-                {AudioStore.audios.map((item, index) => {
-                    return <AudioItem key={item.id} url={item.mediaBlobUrl}/>
+                {AudioStore.audios.map((item) => {
+                    return <AudioItem key={item.id} url={item.mediaBlobUrl} />
                 })}
             </Paper>
         </div>

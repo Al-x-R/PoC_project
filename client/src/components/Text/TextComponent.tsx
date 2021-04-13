@@ -1,10 +1,10 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import Moveable from "react-moveable";
 import Typography from '@material-ui/core/Typography';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 // @ts-ignore
-const TextComponent = ({textItem}) => {
+const TextComponent = ({textItem, idx}) => {
     const [isSelected, setIsSelected] = useState(false)
     const [target, setTarget] = useState('');
     const [frame] = useState({
@@ -12,20 +12,10 @@ const TextComponent = ({textItem}) => {
         rotate: 0
     });
 
-    const moveableRef = useRef(null);
-
     useEffect(() => {
-        const target = document.querySelectorAll<HTMLElement>(".targetText");
+        const target = document.querySelectorAll<HTMLElement>(`.targetText${idx}`);
         // @ts-ignore
         setTarget(target);
-
-        // @ts-ignore
-        // target.addEventListener("load", () => {
-        //     setTimeout(() => {
-        //         // @ts-ignore
-        //         moveableRef.current.updateRect();
-        //     }, 2000);
-        // });
     }, []);
 
     return (
@@ -33,13 +23,12 @@ const TextComponent = ({textItem}) => {
             setIsSelected(true)
         }}>
             <ClickAwayListener onClickAway={() => setIsSelected(false)}>
-                <Typography variant="body1" gutterBottom className="targetText" id={textItem.id}>
+                <Typography variant="body1" gutterBottom className={`targetText${idx}`} id={textItem.id}>
                     {textItem.text}
                 </Typography>
             </ClickAwayListener>
             {isSelected &&
             <Moveable
-              // ref={moveableRef}
               target={target}
               draggable={true}
               throttleDrag={0}
