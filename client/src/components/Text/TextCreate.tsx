@@ -1,14 +1,15 @@
-import React, {useState, FC, useRef, useEffect} from 'react';
-import { Button, TextField } from '@material-ui/core';
+import React, {FC, useState} from 'react';
+import {Button, TextField} from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import {makeStyles} from "@material-ui/core/styles";
-import FormatBoldIcon from '@material-ui/icons/FormatBold';
-import FormatItalicIcon from '@material-ui/icons/FormatItalic';
-import FormatUnderlinedIcon from '@material-ui/icons/FormatUnderlined';
 import TextFieldsIcon from "@material-ui/icons/TextFields";
+
+import { Editor } from 'react-draft-wysiwyg';
+import { EditorState } from 'draft-js';
+import { convertToHTML } from 'draft-convert';
+import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
 import {TextItemImpl} from "../../stores/text";
 
@@ -25,43 +26,30 @@ const useStyles = makeStyles({
             borderBottom: "none"
         }
     },
+    dialog: {
+        width: 350
+    }
 });
 
 const TextCreate: FC<TextsListProps> = ({textStore}) => {
     const classes = useStyles();
-    const [inputText, setInputText] = useState('')
-    const [selection, setSelection] = useState()
 
-    const [isBold, setIsBold] = useState(false)
-    const [isItalic, setIsItalic] = useState(false)
-    const [isUnderline, setIsUnderline] = useState(false)
-
+    const [editorState, setEditorState] = useState(
+        () => EditorState.createEmpty(),
+    );
+    const  [convertedContent, setConvertedContent] = useState(null);
     const [open, setOpen] = useState(false);
 
-
-    const inputRef = useRef<HTMLInputElement | null>(null)
-    if (inputRef.current?.selectionStart || inputRef.current?.selectionStart === null) {
-        let startpos = inputRef.current?.selectionStart;
-        let endpos = inputRef.current.selectionEnd;
-
-        inputRef.current.value  = inputRef.current.value.substring(Number(startpos)) + inputText + inputRef.current.value.substring(Number(endpos), inputRef.current.value.length);
-        inputRef.current.focus();
-
-        // @ts-ignore
-        setSelection(inputRef.current.value)
-
+    const handleEditorChange = (state: any) => {
+        setEditorState(state);
+        convertContentToHTML();
     }
-    console.log(selection)
 
-    // let cursorStart = inputRef.current?.selectionStart;
-    // console.log('start', cursorStart)
-    // let cursorEnd = inputRef.current?.selectionEnd;
-    // console.log('end', cursorEnd)
-
-    // console.log('selection', selection)
-
-    const handleChange = ( e: any ) => {
-        setInputText(e.target.value)
+    const convertContentToHTML = () => {
+        // @ts-ignore
+        let currentContentAsHTML = convertToHTML(editorState.getCurrentContent());
+        // @ts-ignore
+        setConvertedContent(currentContentAsHTML);
     }
 
     const handleClickOpen = () => {
@@ -73,29 +61,9 @@ const TextCreate: FC<TextsListProps> = ({textStore}) => {
     };
 
     const done = () => {
-        textStore.addText(inputText)
+        // @ts-ignore
+        textStore.addText(convertedContent)
         setOpen(false);
-    }
-
-    const onBoldClick = () => {
-        setIsBold(!isBold)
-        if (isBold) {
-            return `<b>${inputText}</b>`
-        }
-    }
-
-    const onItalicClick = () => {
-        setIsItalic(!isItalic)
-        if (isItalic) {
-            return `<i>${inputText}</i>`
-        }
-    }
-
-    const onUnderlineClick =() => {
-        setIsUnderline(!isUnderline)
-        if (isUnderline) {
-            return `<u>${inputText}</u>`
-        }
     }
 
     return (
@@ -104,34 +72,19 @@ const TextCreate: FC<TextsListProps> = ({textStore}) => {
                 <TextFieldsIcon/> Text
             </Button>
             <Dialog onClose={handleClose} aria-labelledby="customized-dialog-title" open={open}>
-                <DialogTitle id="customized-dialog-title">
-                    <FormatBoldIcon onClick={onBoldClick}
-                                    style={{ fontSize: isBold ? 27 : 23,}}
-                    />
-                    <FormatItalicIcon onClick={onItalicClick}
-                                      style={{ fontSize: isItalic ? 27 : 23 }}
-                    />
-                    <FormatUnderlinedIcon onClick={onUnderlineClick}
-                                          style={{ fontSize: isUnderline ? 27 : 23 }}
-                    />
-                </DialogTitle>
-                <DialogContent dividers>
-                    <TextField
-                        ref={inputRef}
-                        autoFocus
-                        onChange={handleChange}
-                        value={inputRef?.current?.value}
-                        margin="dense"
-                        multiline
-                        id="text"
-                        InputProps={{
-                            classes, style: {
-                                fontWeight: isBold ? 'bold' : 'normal',
-                                fontStyle: isItalic ? 'italic' : 'normal',
-                                textDecoration: isUnderline ? 'underline' : 'none',
+                <DialogContent dividers className={classes.dialog}>
+                    <Editor
+                        editorState={editorState}
+                        onEditorStateChange={handleEditorChange}
+                        toolbarClassName="toolbarClassName"
+                        wrapperClassName="wrapperClassName"
+                        editorClassName="editorClassName"
+                        toolbar={{
+                            options: ['inline'],
+                            inline: {
+                                options: ['bold', 'italic', 'underline']
                             }
                         }}
-                        fullWidth
                     />
                 </DialogContent>
                 <DialogActions>

@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 import Moveable from "react-moveable";
 import Typography from '@material-ui/core/Typography';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import DOMPurify from 'dompurify';
 
 // @ts-ignore
 const TextComponent = ({textItem, idx}) => {
@@ -11,6 +12,12 @@ const TextComponent = ({textItem, idx}) => {
         translate: [0, 0],
         rotate: 0
     });
+
+    const createMarkup = (html: any) => {
+        return  {
+            __html: DOMPurify.sanitize(html)
+        }
+    }
 
     useEffect(() => {
         const target = document.querySelectorAll<HTMLElement>(`.targetText${idx}`);
@@ -23,8 +30,11 @@ const TextComponent = ({textItem, idx}) => {
             setIsSelected(true)
         }}>
             <ClickAwayListener onClickAway={() => setIsSelected(false)}>
-                <Typography variant="body1" gutterBottom className={`targetText${idx}`} id={textItem.id}>
-                    {textItem.text}
+                <Typography variant="body1" gutterBottom
+                            className={`targetText${idx}`}
+                            id={textItem.id}
+                            dangerouslySetInnerHTML={createMarkup(textItem?.text)}>
+
                 </Typography>
             </ClickAwayListener>
             {isSelected &&
