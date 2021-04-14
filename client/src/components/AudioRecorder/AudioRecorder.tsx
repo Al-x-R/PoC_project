@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {useReactMediaRecorder} from 'react-media-recorder';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -20,6 +20,7 @@ import {AudioStore} from '../../stores/audio';
 import CountDown from '../CountDown/CountDown';
 import Timer from '../Timer/Timer';
 
+
 const useStyles = makeStyles({
     toolBarStyles: {
         backgroundColor: 'white',
@@ -39,7 +40,12 @@ const stopRecordingButtonStyles = {
     color: 'black'
 }
 
-const AudioRecorder = observer(() => {
+export type PropTypes = {
+    pageId: number,
+    pageNumber: number,
+}
+
+const AudioRecorder: FC<PropTypes> = observer(({pageId, pageNumber}) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
@@ -76,7 +82,7 @@ const AudioRecorder = observer(() => {
 
     const saveAudio = () => {
         if (mediaBlobUrl) {
-            AudioStore.addAudio(mediaBlobUrl)
+            AudioStore.addAudio(mediaBlobUrl, pageId, pageNumber)
             MenuStore.toggleIsAudio(false)
             setOpen(false);
         }

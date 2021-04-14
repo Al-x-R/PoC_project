@@ -6,7 +6,6 @@ import AddIcon from '@material-ui/icons/Add';
 import SettingsVoiceIcon from '@material-ui/icons/SettingsVoice';
 import TextCreate from '../Text/TextCreate';
 
-import {TextStore} from '../../stores/text';
 import {observer} from "mobx-react-lite";
 import {MenuStore} from "../../stores/menu";
 
@@ -40,7 +39,7 @@ export const TopBarMenu = observer(() => {
                 open={Boolean(anchorEl)}
                 onClose={handleClose}
             >
-                <MenuItem onClick={handleClose}><TextCreate textStore={TextStore} /></MenuItem>
+                <MenuItem onClick={handleClose}><TextCreate /></MenuItem>
                 <MenuItem onClick={handlerVoiceMenuClick}><SettingsVoiceIcon/> Record</MenuItem>
             </Menu>
         </div>

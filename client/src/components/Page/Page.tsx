@@ -4,9 +4,10 @@ import Picture from '../Picture/Picture';
 import TextComponent from '../Text/TextComponent';
 
 import {observer} from 'mobx-react-lite';
-import {TextItemImpl} from '../../stores/text';
+import {TextItem, TextStore} from '../../stores/text';
 import {AudioStore} from "../../stores/audio";
 import AudioItem from "../AudioItem/AudioItem";
+import {PageItemImpl} from "../../stores/page";
 
 const paperStyle = {
     width: '500px',
@@ -15,17 +16,20 @@ const paperStyle = {
     // overflow: 'hidden'
 }
 
-interface TextsListProps {
-    textStore: TextItemImpl
+export interface PropTypes {
+    pageId?: number,
+    pageNumber?: number,
+    img?: object,
+    textItem?: TextItem
 }
 
-const Page: FC<TextsListProps> = observer(({textStore}) => {
+const Page: FC<PropTypes> = observer(() => {
 
     return (
         <div>
             <Paper style={paperStyle}>
                 <Picture/>
-                {textStore.texts.map((t, index) => {
+                {TextStore.texts.map((t, index) => {
                     return <TextComponent key={t.id} textItem={t} idx={index}/>
                 })}
                 {AudioStore.audios.map((item) => {

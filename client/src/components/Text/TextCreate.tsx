@@ -11,11 +11,8 @@ import { EditorState } from 'draft-js';
 import { convertToHTML } from 'draft-convert';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-import {TextItemImpl} from "../../stores/text";
+import {TextStore} from "../../stores/text";
 
-interface TextsListProps {
-    textStore: TextItemImpl,
-}
 
 const useStyles = makeStyles({
     underline: {
@@ -31,7 +28,7 @@ const useStyles = makeStyles({
     }
 });
 
-const TextCreate: FC<TextsListProps> = ({textStore}) => {
+const TextCreate: FC = () => {
     const classes = useStyles();
 
     const [editorState, setEditorState] = useState(
@@ -62,7 +59,7 @@ const TextCreate: FC<TextsListProps> = ({textStore}) => {
 
     const done = () => {
         // @ts-ignore
-        textStore.addText(convertedContent)
+        TextStore.addText(convertedContent)
         setOpen(false);
     }
 
