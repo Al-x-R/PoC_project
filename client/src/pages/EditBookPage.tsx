@@ -2,7 +2,6 @@ import React, {useState, useEffect, FC} from 'react';
 import AudioRecorder from '../components/AudioRecorder/AudioRecorder';
 import TopBar from '../components/TopBar/TopBar';
 import Carousel from '../components/Carousel/Carousel';
-import axios from 'axios'
 
 import {observer} from 'mobx-react-lite';
 import {MenuStore} from '../stores/menu';
@@ -21,28 +20,17 @@ export type PropTypes = {
     img: object
 }
 
-const EditBookPage: FC<PropTypes> = observer(({pageNumber, pageId, img}) => {
-    const [pages, setPages] = useState<any[]>([])
+const EditBookPage: FC<PropTypes> = observer(({}) => {
 
     useEffect(() => {
-        axios.get('pages.json').then(res => {
-            console.log('res ',res.data)
-            setPages(res.data.pages)
-            pages.map(p => PageStore.addPage(p.id, p.bookId, p.pageNumber, p.img))
-        })
-    },[])
-
-    // useEffect(() => {
-    //         pages.map(p => PageStore.addPage(p.id, p.bookId, p.pageNumber, p.img))
-    // }, [])
-
-    console.log('pages store ', PageStore.pages)
+        PageStore.getPages()
+    }, [])
 
     return (
         <>
-            { MenuStore.isAudio ? <AudioRecorder pageNumber={pageNumber} pageId={pageId}  /> : <TopBar />}
+            {MenuStore.isAudio ? (<AudioRecorder />) : <TopBar/>}
             <div style={pageStyle}>
-                <Carousel />
+                <Carousel/>
             </div>
         </>
     );

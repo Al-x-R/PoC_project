@@ -41,11 +41,11 @@ const stopRecordingButtonStyles = {
 }
 
 export type PropTypes = {
-    pageId: number,
-    pageNumber: number,
+    pageId?: number,
+    pageNumber?: number,
 }
 
-const AudioRecorder: FC<PropTypes> = observer(({pageId, pageNumber}) => {
+const AudioRecorder: FC<PropTypes> = observer(({}) => {
     const classes = useStyles();
     const [open, setOpen] = useState(false);
 
@@ -82,7 +82,7 @@ const AudioRecorder: FC<PropTypes> = observer(({pageId, pageNumber}) => {
 
     const saveAudio = () => {
         if (mediaBlobUrl) {
-            AudioStore.addAudio(mediaBlobUrl, pageId, pageNumber)
+            AudioStore.addAudio(mediaBlobUrl)
             MenuStore.toggleIsAudio(false)
             setOpen(false);
         }

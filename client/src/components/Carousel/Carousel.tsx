@@ -6,7 +6,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import Page from '../Page/Page';
 import {observer} from 'mobx-react-lite';
-import {PageItem, PageItemImpl, PageStore} from '../../stores/page';
+import {PageStore} from '../../stores/page';
 
 
 const useStyles = makeStyles({
@@ -27,16 +27,17 @@ export interface PropTypes {
     img: object,
 }
 
-const Carousel = observer(({  }) => {
+const Carousel = observer(({}) => {
     const classes = useStyles();
     const [currentPageNumber, setCurrentPageNumber] = useState(1)
-    console.log('page number ', currentPageNumber)
+    const [page, setPage] = useState()
 
-
+    console.log(page)
 
     useEffect(() => {
-        console.log('get page ', PageStore.getPage(currentPageNumber))
-        console.log('filter ',PageStore.pages.filter(p => p.pageNumber === currentPageNumber))
+        // @ts-ignore
+        return setPage(PageStore.getPage(currentPageNumber));
+
     }, [currentPageNumber])
 
     const nextPage = () => {
@@ -54,11 +55,7 @@ const Carousel = observer(({  }) => {
     return (
         <div className={classes.mainBlock}>
             <Button onClick={prevPage}><ArrowBackIosIcon className={classes.icon}/></Button>
-            {PageStore.pages.filter(p => {
-                if(p.pageNumber === currentPageNumber) {
-                  return  <Page pageId={p.id} img={p.img}/>
-                }
-            })}
+            <Page />
 
             <Button onClick={nextPage}><ArrowForwardIosIcon className={classes.icon}/></Button>
         </div>

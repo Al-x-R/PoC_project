@@ -1,4 +1,5 @@
 import {action, makeObservable, observable} from 'mobx';
+import axios from "axios";
 
 export interface PageItem {
     id: number
@@ -14,9 +15,17 @@ export class PageItemImpl {
         makeObservable(this, {
             pages: observable,
 
+            getPages: action,
             addPage: action,
             getPage: action
         })
+    }
+
+    getPages() {
+        axios.get('pages.json').then(res => {
+            res.data.pages.map((page: PageItem) => this.pages.push(page))
+        })
+        console.log('get action pages', this.pages)
     }
 
     addPage(id: number, bookId: number, pageNumber: number, img: object) {
@@ -30,7 +39,8 @@ export class PageItemImpl {
     }
 
     getPage(pageNumber: number) {
-        this.pages =  this.pages.filter(page => page.pageNumber === pageNumber)
+        console.log(' this page num', pageNumber)
+        return this.pages.filter(page => page.pageNumber === 3)
     }
 }
 

@@ -2,8 +2,8 @@ import {action, makeObservable, observable} from 'mobx';
 
 export interface AudioItem {
     id: number
-    pageId: number
-    pageNumber: number
+    // pageId: number
+    // pageNumber: number
     mediaBlobUrl: string
 }
 
@@ -17,11 +17,11 @@ export class AudioItemImpl {
         })
     }
 
-    addAudio(mediaBlobUrl: string, pageId: number, pageNumber: number) {
+    addAudio(mediaBlobUrl: string) {
         const item: AudioItem = {
             id: Number(Math.random().toFixed(3)),
-            pageId,
-            pageNumber,
+            // pageId,
+            // pageNumber,
             mediaBlobUrl,
         }
         this.audios.push(item)
