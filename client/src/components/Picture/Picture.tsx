@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, FC} from 'react';
 import Moveable from 'react-moveable';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
@@ -8,7 +8,11 @@ const pictureStyles = {
     objectFit: 'cover'
 } as React.CSSProperties
 
-const Picture = () => {
+export interface PictureProps {
+    src: string
+}
+
+const Picture: FC<PictureProps> = ({src}) => {
     const [isSelected, setIsSelected] = useState(false)
     const [target, setTarget] = useState('');
     const [frame] = useState({
@@ -26,7 +30,7 @@ const Picture = () => {
         <div style={pictureStyles} onClick={() => setIsSelected(true)}>
             <ClickAwayListener onClickAway={() => setIsSelected(false)}>
                 <img className="target" style={pictureStyles}
-                     src='https://res.cloudinary.com/css-tricks/image/fetch/w_1200,q_auto,f_auto/https://css-tricks.com/wp-content/uploads/2020/09/react-suspense.png'
+                     src={src}
                      alt=''/>
             </ClickAwayListener>
             {isSelected &&

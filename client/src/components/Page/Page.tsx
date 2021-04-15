@@ -23,12 +23,19 @@ export interface PropTypes {
     textItem?: TextItem
 }
 
-const Page: FC<PropTypes> = observer(() => {
+// @ts-ignore
+const Page: FC<PropTypes> = observer(({page}) => {
+    // @ts-ignore
+        console.log(page.elements)
 
+    // @ts-ignore
     return (
         <div>
             <Paper style={paperStyle}>
-                <Picture/>
+                {/*{page?.elements.filter(el => el?.type === 'picture').map(pic => {*/}
+                {/*    return <Picture src={pic?.src}/>*/}
+                {/*})}*/}
+                <Picture src={''}/>
                 {TextStore.texts.map((t, index) => {
                     return <TextComponent key={t.id} textItem={t} idx={index}/>
                 })}

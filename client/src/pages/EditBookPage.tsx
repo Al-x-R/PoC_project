@@ -5,7 +5,7 @@ import Carousel from '../components/Carousel/Carousel';
 
 import {observer} from 'mobx-react-lite';
 import {MenuStore} from '../stores/menu';
-import {PageStore} from '../stores/page';
+import bookStore from '../stores/сurrentBookStore';
 
 const pageStyle = {
     display: 'flex',
@@ -20,7 +20,7 @@ export type PropTypes = {
     img: object
 }
 
-const EditBookPage: FC<PropTypes> = observer(({}) => {
+const EditBookPage: FC<PropTypes> = observer(() => {
 
     useEffect(() => {
         PageStore.getPages()
@@ -28,7 +28,7 @@ const EditBookPage: FC<PropTypes> = observer(({}) => {
 
     return (
         <>
-            {MenuStore.isAudio ? (<AudioRecorder />) : <TopBar/>}
+            {MenuStore.isAudio ? <AudioRecorder /> : <TopBar/>}
             <div style={pageStyle}>
                 <Carousel/>
             </div>

@@ -1,4 +1,4 @@
-import React, {useState, useEffect, FC} from 'react';
+import React from 'react';
 import {Button} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
@@ -6,8 +6,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import Page from '../Page/Page';
 import {observer} from 'mobx-react-lite';
-import {PageStore} from '../../stores/page';
-
+import bookStore from '../../stores/сurrentBookStore'
 
 const useStyles = makeStyles({
     mainBlock: {
@@ -20,12 +19,6 @@ const useStyles = makeStyles({
         fontSize: 45
     }
 })
-
-export interface PropTypes {
-    pageId: number,
-    pageNumber: number,
-    img: object,
-}
 
 const Carousel = observer(({}) => {
     const classes = useStyles();
