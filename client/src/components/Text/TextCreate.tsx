@@ -1,18 +1,17 @@
 import React, {FC, useState} from 'react';
-import {Button, TextField} from '@material-ui/core';
+import {Button} from '@material-ui/core';
 import Dialog from '@material-ui/core/Dialog';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogActions from '@material-ui/core/DialogActions';
 import {makeStyles} from "@material-ui/core/styles";
 import TextFieldsIcon from "@material-ui/icons/TextFields";
 
-import { Editor } from 'react-draft-wysiwyg';
-import { EditorState } from 'draft-js';
-import { convertToHTML } from 'draft-convert';
+import {Editor} from 'react-draft-wysiwyg';
+import {EditorState} from 'draft-js';
+import {convertToHTML} from 'draft-convert';
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
 
-import {TextStore} from "../../stores/text";
-
+import CurrentBookStore from '../../stores/сurrentBookStore'
 
 const useStyles = makeStyles({
     underline: {
@@ -34,7 +33,7 @@ const TextCreate: FC = () => {
     const [editorState, setEditorState] = useState(
         () => EditorState.createEmpty(),
     );
-    const  [convertedContent, setConvertedContent] = useState(null);
+    const [convertedContent, setConvertedContent] = useState(null);
     const [open, setOpen] = useState(false);
 
     const handleEditorChange = (state: any) => {
@@ -59,7 +58,7 @@ const TextCreate: FC = () => {
 
     const done = () => {
         // @ts-ignore
-        TextStore.addText(convertedContent)
+        CurrentBookStore.addText(convertedContent)
         setOpen(false);
     }
 

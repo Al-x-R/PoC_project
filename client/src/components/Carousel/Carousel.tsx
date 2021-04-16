@@ -6,7 +6,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import Page from '../Page/Page';
 import {observer} from 'mobx-react-lite';
-import bookStore from '../../stores/сurrentBookStore'
+import CurrentBookStore from '../../stores/сurrentBookStore'
 
 const useStyles = makeStyles({
     mainBlock: {
@@ -20,37 +20,14 @@ const useStyles = makeStyles({
     }
 })
 
-const Carousel = observer(({}) => {
+const Carousel = observer(() => {
     const classes = useStyles();
-    const [currentPageNumber, setCurrentPageNumber] = useState(1)
-    const [page, setPage] = useState()
-
-    console.log(page)
-
-    useEffect(() => {
-        // @ts-ignore
-        return setPage(PageStore.getPage(currentPageNumber));
-
-    }, [currentPageNumber])
-
-    const nextPage = () => {
-        if (currentPageNumber < 10) {
-            setCurrentPageNumber(prevState => prevState + 1)
-        }
-    }
-
-    const prevPage = () => {
-        if (currentPageNumber > 1) {
-            setCurrentPageNumber(prevState => prevState - 1)
-        }
-    }
 
     return (
         <div className={classes.mainBlock}>
-            <Button onClick={prevPage}><ArrowBackIosIcon className={classes.icon}/></Button>
-            <Page />
-
-            <Button onClick={nextPage}><ArrowForwardIosIcon className={classes.icon}/></Button>
+            <Button onClick={CurrentBookStore.decreasePage}><ArrowBackIosIcon className={classes.icon}/></Button>
+            <Page page={CurrentBookStore.currentPage}/>
+            <Button onClick={CurrentBookStore.increasePage}><ArrowForwardIosIcon className={classes.icon}/></Button>
         </div>
     );
 })

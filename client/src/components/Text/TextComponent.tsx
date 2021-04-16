@@ -1,18 +1,16 @@
 import React, {FC, useEffect, useState} from 'react';
 import Moveable from "react-moveable";
-import Typography from '@material-ui/core/Typography';
+
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 import DOMPurify from 'dompurify';
-import {TextItem} from "../../stores/text";
 
-export type PropTypes = {
-    textItem: TextItem,
+export type TextProps = {
     idx: number
+    text?: string;
 }
 
 // @ts-ignore
-const TextComponent = ({textItem, idx}) => {
-    console.log('typeof', typeof textItem)
+const TextComponent: FC<TextProps> = ({idx, text}) => {
     const [isSelected, setIsSelected] = useState(false)
     const [target, setTarget] = useState('');
     const [frame] = useState({
@@ -20,8 +18,9 @@ const TextComponent = ({textItem, idx}) => {
         rotate: 0
     });
 
-    const createMarkup = (html: string) => {
-        return  {
+    const createMarkup = (html: string | undefined) => {
+        return {
+            // @ts-ignore
             __html: DOMPurify.sanitize(html)
         }
     }
@@ -37,12 +36,10 @@ const TextComponent = ({textItem, idx}) => {
             setIsSelected(true)
         }}>
             <ClickAwayListener onClickAway={() => setIsSelected(false)}>
-                <Typography variant="body1" gutterBottom
-                            className={`targetText${idx}`}
-                            id={textItem.id}
-                            dangerouslySetInnerHTML={createMarkup(textItem?.text)}>
-
-                </Typography>
+                <div
+                    className={`targetText${idx}`}
+                    dangerouslySetInnerHTML={createMarkup(text)}>
+                </div>
             </ClickAwayListener>
             {isSelected &&
             <Moveable

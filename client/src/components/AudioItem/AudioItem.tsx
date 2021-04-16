@@ -20,7 +20,7 @@ const AudioItem = ({url}) => {
     });
 
     const toggle = () => {
-        if(isSelectedAudio) {
+        if (isSelectedAudio) {
             setPlaying(!playing)
         }
     };
@@ -49,7 +49,8 @@ const AudioItem = ({url}) => {
         <div onClick={() => setIsSelectedAudio(true)}>
             <ClickAwayListener onClickAway={() => setIsSelectedAudio(false)}>
                 <div onClick={toggle} className="targetAudio">
-                    {playing ? <PauseCircleOutlineIcon style={iconStyles} className="targetAudio"/> : <VolumeUpIcon style={iconStyles} className="targetAudio"/>}
+                    {playing ? <PauseCircleOutlineIcon style={iconStyles} className="targetAudio"/> :
+                        <VolumeUpIcon style={iconStyles} className="targetAudio"/>}
                 </div>
             </ClickAwayListener>
             {isSelectedAudio &&
