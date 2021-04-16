@@ -40,22 +40,19 @@ const CountDown = () => {
     }, [current]);
 
     useEffect(() => {
-        // @ts-ignore
-        const one = refElem1.current.innerText
+        const one = refElem1?.current?.innerText
         if (current === Number(one)) {
             setIsOne(true)
         } else {
             setIsOne(false)
         }
-        // @ts-ignore
-        const two = refElem2.current.innerText
+        const two = refElem2?.current?.innerText
         if (current === Number(two)) {
             setIsTwo(true)
         } else {
             setIsTwo(false)
         }
-        // @ts-ignore
-        const three = refElem3.current.innerText
+        const three = refElem3?.current?.innerText
         if (current === Number(three)) {
             setIsThree(true)
         } else {

@@ -21,12 +21,9 @@ export interface PropTypes {
 }
 
 const Page: FC<PropTypes> = observer(({page}) => {
-    // @ts-ignore
-    const pictures = page.elements?.filter(el => el.type === 'picture')
+    const pictures = page?.elements?.filter(el => el.type === 'picture')
     const texts = page?.elements?.filter(el => el.type === 'text')
     const audios = page?.elements?.filter(el => el.type === 'audio')
-    console.log(texts)
-
 
     return (
         <div>
@@ -40,6 +37,7 @@ const Page: FC<PropTypes> = observer(({page}) => {
                     return <TextComponent key={t.id} text={t.text} idx={index}/>
                 })}
                 {audios && audios.map((item) => {
+                    // @ts-ignore
                     return <AudioItem key={item.id} url={item.mediaBlobUrl}/>
                 })}
             </Paper>

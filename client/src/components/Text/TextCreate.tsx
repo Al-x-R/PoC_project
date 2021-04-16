@@ -33,7 +33,7 @@ const TextCreate: FC = () => {
     const [editorState, setEditorState] = useState(
         () => EditorState.createEmpty(),
     );
-    const [convertedContent, setConvertedContent] = useState(null);
+    const [convertedContent, setConvertedContent] = useState('');
     const [open, setOpen] = useState(false);
 
     const handleEditorChange = (state: any) => {
@@ -57,7 +57,6 @@ const TextCreate: FC = () => {
     };
 
     const done = () => {
-        // @ts-ignore
         CurrentBookStore.addText(convertedContent)
         setOpen(false);
     }

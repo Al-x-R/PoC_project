@@ -14,7 +14,7 @@ export interface PictureProps {
 
 const Picture: FC<PictureProps> = ({src}) => {
     const [isSelected, setIsSelected] = useState(false)
-    const [target, setTarget] = useState('');
+    const [target, setTarget] = useState<HTMLImageElement | null>(null);
     const [frame] = useState({
         translate: [0, 0],
         rotate: 0
@@ -22,7 +22,6 @@ const Picture: FC<PictureProps> = ({src}) => {
 
     useEffect(() => {
         const target = document.querySelector<HTMLImageElement>(".target");
-        // @ts-ignore
         setTarget(target);
     }, []);
 

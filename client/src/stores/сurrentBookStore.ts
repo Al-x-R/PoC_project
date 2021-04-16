@@ -6,16 +6,16 @@ export interface PageItem {
     id: number;
     bookId: number;
     pageNumber: number;
-    elements: Array<Elm>;
+    elements: Array<Elem>;
 }
 
-export interface Elm {
+export interface Elem {
     type: string;
     id: number;
+    mediaBlobUrl?: string;
+    text?: string;
     url?: string;
     alt?: string;
-    text?: string;
-    mediaBlobUrl?: string;
 }
 
 class CurrentBookStore {
@@ -60,26 +60,21 @@ class CurrentBookStore {
         this.pages.push(item)
     }
 
-    @action addText(text: string){
-        const textItem: Elm = {
+    @action addText(text: string) {
+        const textItem: Elem = {
             type: 'text',
             id: Number(Math.random().toFixed(3)),
             text
         }
-        console.log('textItem ', textItem)
-        // this.pages[this.currentPageNumber].elements.push(textItem)
         this.currentPage.elements.push(textItem)
-        console.log(this.currentPage.elements)
-
     }
 
     @action addAudio(mediaBlobUrl: string) {
-        const audioItem: Elm = {
+        const audioItem: Elem = {
             type: 'audio',
             id: Number(Math.random().toFixed(3)),
             mediaBlobUrl
         }
-        console.log('audio item ', audioItem)
         this.currentPage.elements.push(audioItem)
     }
 

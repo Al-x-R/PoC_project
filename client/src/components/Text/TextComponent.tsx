@@ -9,10 +9,9 @@ export type TextProps = {
     text?: string;
 }
 
-// @ts-ignore
 const TextComponent: FC<TextProps> = ({idx, text}) => {
     const [isSelected, setIsSelected] = useState(false)
-    const [target, setTarget] = useState('');
+    const [target, setTarget] = useState<NodeListOf<HTMLElement> | null>(null);
     const [frame] = useState({
         translate: [0, 0],
         rotate: 0
@@ -27,9 +26,8 @@ const TextComponent: FC<TextProps> = ({idx, text}) => {
 
     useEffect(() => {
         const target = document.querySelectorAll<HTMLElement>(`.targetText${idx}`);
-        // @ts-ignore
         setTarget(target);
-    }, []);
+    }, [idx]);
 
     return (
         <div onClick={(e) => {

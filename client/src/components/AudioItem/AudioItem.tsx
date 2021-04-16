@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import Moveable from 'react-moveable';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
@@ -8,10 +8,13 @@ const iconStyles = {
     fontSize: 40,
 }
 
-// @ts-ignore
-const AudioItem = ({url}) => {
+export interface AudioProps {
+    url: string
+}
+
+const AudioItem: FC<AudioProps> = ({url}) => {
     const [audio] = useState(new Audio(url));
-    const [target, setTarget] = useState('');
+    const [target, setTarget] = useState<HTMLAudioElement | null>(null);
     const [isSelectedAudio, setIsSelectedAudio] = useState(false)
     const [playing, setPlaying] = useState(false);
     const [frame] = useState({
@@ -26,10 +29,9 @@ const AudioItem = ({url}) => {
     };
 
     useEffect(() => {
-        const target = document.querySelector<HTMLImageElement>(".targetAudio");
-        // @ts-ignore
+        const target = document.querySelector<HTMLAudioElement>(".targetAudio");
         setTarget(target);
-    }, []);
+    }, [audio]);
 
     useEffect(() => {
             playing ? audio.play() : audio.pause();
