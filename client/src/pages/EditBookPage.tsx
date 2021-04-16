@@ -1,11 +1,11 @@
-import React, {useState, useEffect, FC} from 'react';
+import React, {useEffect, FC} from 'react';
 import AudioRecorder from '../components/AudioRecorder/AudioRecorder';
 import TopBar from '../components/TopBar/TopBar';
 import Carousel from '../components/Carousel/Carousel';
 
 import {observer} from 'mobx-react-lite';
 import {MenuStore} from '../stores/menu';
-import bookStore from '../stores/сurrentBookStore';
+import CurrentBookStore from '../stores/сurrentBookStore';
 
 const pageStyle = {
     display: 'flex',
@@ -28,7 +28,7 @@ const EditBookPage: FC<PropTypes> = observer(() => {
 
     return (
         <>
-            {MenuStore.isAudio ? <AudioRecorder /> : <TopBar/>}
+            {MenuStore.isAudio ? <AudioRecorder/> : <TopBar/>}
             <div style={pageStyle}>
                 <Carousel/>
             </div>

@@ -16,9 +16,10 @@ import {makeStyles} from '@material-ui/core/styles';
 
 import {observer} from 'mobx-react-lite';
 import {MenuStore} from '../../stores/menu';
-import {AudioStore} from '../../stores/audio';
 import CountDown from '../CountDown/CountDown';
 import Timer from '../Timer/Timer';
+
+import CurrentBookStore from '../../stores/сurrentBookStore'
 
 
 const useStyles = makeStyles({
@@ -82,7 +83,7 @@ const AudioRecorder: FC<PropTypes> = observer(({}) => {
 
     const saveAudio = () => {
         if (mediaBlobUrl) {
-            AudioStore.addAudio(mediaBlobUrl)
+            CurrentBookStore.addAudio(mediaBlobUrl)
             MenuStore.toggleIsAudio(false)
             setOpen(false);
         }

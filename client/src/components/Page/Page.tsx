@@ -23,24 +23,26 @@ export interface PropTypes {
     textItem?: TextItem
 }
 
-// @ts-ignore
 const Page: FC<PropTypes> = observer(({page}) => {
     // @ts-ignore
-        console.log(page.elements)
+    const pictures = page.elements?.filter(el => el.type === 'picture')
+    const texts = page?.elements?.filter(el => el.type === 'text')
+    const audios = page?.elements?.filter(el => el.type === 'audio')
+    console.log(texts)
 
-    // @ts-ignore
+
     return (
         <div>
             <Paper style={paperStyle}>
-                {/*{page?.elements.filter(el => el?.type === 'picture').map(pic => {*/}
-                {/*    return <Picture src={pic?.src}/>*/}
-                {/*})}*/}
-                <Picture src={''}/>
-                {TextStore.texts.map((t, index) => {
-                    return <TextComponent key={t.id} textItem={t} idx={index}/>
+                {pictures && pictures.map(pic => (
+                    // @ts-ignore
+                    <Picture key={pic.id} src={pic.url}/>
+                ))}
+                {texts && texts.map((t, index) => {
+                    return <TextComponent key={t.id} text={t.text} idx={index}/>
                 })}
-                {AudioStore.audios.map((item) => {
-                    return <AudioItem key={item.id} url={item.mediaBlobUrl} />
+                {audios && audios.map((item) => {
+                    return <AudioItem key={item.id} url={item.mediaBlobUrl}/>
                 })}
             </Paper>
         </div>

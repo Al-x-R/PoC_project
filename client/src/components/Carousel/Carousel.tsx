@@ -6,7 +6,7 @@ import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 
 import Page from '../Page/Page';
 import {observer} from 'mobx-react-lite';
-import bookStore from '../../stores/сurrentBookStore'
+import CurrentBookStore from '../../stores/сurrentBookStore'
 
 const useStyles = makeStyles({
     mainBlock: {
@@ -20,7 +20,7 @@ const useStyles = makeStyles({
     }
 })
 
-const Carousel = observer(({}) => {
+const Carousel = observer(() => {
     const classes = useStyles();
     const [currentPageNumber, setCurrentPageNumber] = useState(1)
     const [page, setPage] = useState()

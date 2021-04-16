@@ -10,12 +10,6 @@
           "id": 1,
           "url": "https://res.cloudinary.com/css-tricks/image/fetch/w_1200,q_auto,f_auto/https://css-tricks.com/wp-content/uploads/2020/09/react-suspense.png",
           "alt": ""
-        },
-        {
-          "type": "text"
-        },
-        {
-          "type": "audio"
         }
       ]
     },
@@ -27,14 +21,8 @@
         {
           "type": "picture",
           "id": 2,
-          "url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fskywell.software%2Fblog%2Fwhat-is-typescript-and-when-to-use-it%2F&psig=AOvVaw3TZ8dL2u-GgxRuwMXhVcpm&ust=1618471211742000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCPCvkaaZ_e8CFQAAAAAdAAAAABAD",
+          "url": "https://i.pinimg.com/236x/94/a4/4b/94a44bb26d25a07c203de937b63bd7c1.jpg",
           "alt": ""
-        },
-        {
-          "type": "text"
-        },
-        {
-          "type": "audio"
         }
       ]
     },
@@ -46,14 +34,8 @@
         {
           "type": "picture",
           "id": 3,
-          "url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fdevlinduldulao.pro%2Fhow-to-setup-mobx-with-typescript-in-the-new-create-app%2F&psig=AOvVaw3WIH_7-Vl4mqSLCbj_C8TD&ust=1618471271052000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNCWvsCZ_e8CFQAAAAAdAAAAABAD",
+          "url": "https://devhumor.com/content/uploads/images/August2020/Programming-Language-Comics---Funny-Coding-Comic.png",
           "alt": ""
-        },
-        {
-          "type": "text"
-        },
-        {
-          "type": "audio"
         }
       ]
     },
@@ -65,14 +47,8 @@
         {
           "type": "picture",
           "id": 4,
-          "url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Ficonscout.com%2Fblog%2Ficon-design-inspiration-week-30&psig=AOvVaw3WIH_7-Vl4mqSLCbj_C8TD&ust=1618471271052000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCNCWvsCZ_e8CFQAAAAAdAAAAABAh",
+          "url": "https://www.dailymoss.com/wp-content/uploads/2018/01/ca4794cfada458717c7aa99093a1f425.jpg",
           "alt": ""
-        },
-        {
-          "type": "text"
-        },
-        {
-          "type": "audio"
         }
       ]
     },
@@ -84,14 +60,8 @@
         {
           "type": "picture",
           "id": 5,
-          "url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fnestjs.com%2F&psig=AOvVaw1wdiNbLQHdZlXiBPDZVRQ5&ust=1618471395001000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCXg_iZ_e8CFQAAAAAdAAAAABAD",
+          "url": "https://miro.medium.com/max/1400/1*3YvmAm2_2hRw23m1hQYmtw.jpeg",
           "alt": ""
-        },
-        {
-          "type": "text"
-        },
-        {
-          "type": "audio"
         }
       ]
     },
@@ -103,14 +73,8 @@
         {
           "type": "picture",
           "id": 6,
-          "url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fdev.to%2Faryanjnyc%2Fstand-up-a-node-js-server-with-nestjs-including-typescript-and-graphql-fao&psig=AOvVaw1wdiNbLQHdZlXiBPDZVRQ5&ust=1618471395001000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCOCXg_iZ_e8CFQAAAAAdAAAAABAK",
+          "url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRejg3s9GdZnm0_ufU5TdUN4jr2k7f3hI_nqw&usqp=CAU",
           "alt": ""
-        },
-        {
-          "type": "text"
-        },
-        {
-          "type": "audio"
         }
       ]
     },
@@ -122,14 +86,8 @@
         {
           "type": "picture",
           "id": 7,
-          "url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fdev.to%2Flawrence_eagles%2Funderstanding-first-class-functions-and-anonymous-functions-in-javascript-b2d&psig=AOvVaw3rbdGSCPX5Wszt_idOhdgh&ust=1618471447772000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKCPo5Ga_e8CFQAAAAAdAAAAABAD",
+          "url": "https://d1bf7xm2ot2gjt.cloudfront.net/original/2X/f/f6395db96591166e238ecff5219f66e4d7099322.jpeg",
           "alt": ""
-        },
-        {
-          "type": "text"
-        },
-        {
-          "type": "audio"
         }
       ]
     },
@@ -141,14 +99,8 @@
         {
           "type": "picture",
           "id": 8,
-          "url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fru.hexlet.io%2Fblog%2Fposts%2Fstoit-li-uchit-javascript-perspektivy-situatsiya-na-rynke-truda-mneniya-ekspertov&psig=AOvVaw3rbdGSCPX5Wszt_idOhdgh&ust=1618471447772000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKCPo5Ga_e8CFQAAAAAdAAAAABAK",
+          "url": "https://miro.medium.com/max/1440/0*9U56EcvbDoSMTxLi.png",
           "alt": ""
-        },
-        {
-          "type": "text"
-        },
-        {
-          "type": "audio"
         }
       ]
     },
@@ -160,15 +112,10 @@
         {
           "type": "picture",
           "id": 9,
-          "url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fmedium.com%2Fdevschacht%2Flazy-javascript-parsing-in-v8-99b5c3a6cbba&psig=AOvVaw3rbdGSCPX5Wszt_idOhdgh&ust=1618471447772000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKCPo5Ga_e8CFQAAAAAdAAAAABAQ",
+          "url": "https://i.pinimg.com/736x/89/c4/52/89c452c1e596c77dbb7fe3a17371c828.jpg",
           "alt": ""
-        },
-        {
-          "type": "text"
-        },
-        {
-          "type": "audio"
         }
+
       ]
     },
     {
@@ -176,18 +123,7 @@
       "bookId": 1,
       "pageNumber": 10,
       "elements": [
-        {
-          "type": "picture",
-          "id": 10,
-          "url": "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.creativebloq.com%2Ffeatures%2F12-common-javascript-questions-answered&psig=AOvVaw3rbdGSCPX5Wszt_idOhdgh&ust=1618471447772000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCKCPo5Ga_e8CFQAAAAAdAAAAABAW",
-          "alt": ""
-        },
-        {
-          "type": "text"
-        },
-        {
-          "type": "audio"
-        }
+
       ]
     }
   ]
