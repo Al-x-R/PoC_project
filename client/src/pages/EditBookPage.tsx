@@ -1,4 +1,4 @@
-import React, {useEffect, FC} from 'react';
+import React, {useEffect} from 'react';
 import AudioRecorder from '../components/AudioRecorder/AudioRecorder';
 import TopBar from '../components/TopBar/TopBar';
 import Carousel from '../components/Carousel/Carousel';
@@ -14,13 +14,7 @@ const pageStyle = {
     marginTop: '150px'
 }
 
-export type PropTypes = {
-    pageId: number,
-    pageNumber: number,
-    img: object
-}
-
-const EditBookPage: FC<PropTypes> = observer(() => {
+const EditBookPage = observer(() => {
 
     useEffect(() => {
         CurrentBookStore.initializePages();

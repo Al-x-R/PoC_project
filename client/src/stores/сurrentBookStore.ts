@@ -1,5 +1,5 @@
 import {action, computed, makeObservable, observable, runInAction} from 'mobx';
-import axios from "axios";
+import axios from 'axios';
 import {waitAsync} from '../utils/promises.utils';
 
 export interface PageItem {
@@ -16,6 +16,12 @@ export interface Elem {
     text?: string;
     url?: string;
     alt?: string;
+    frame?: Frame
+}
+
+interface Frame {
+    translate: number[]
+    rotate: number
 }
 
 class CurrentBookStore {
@@ -64,7 +70,7 @@ class CurrentBookStore {
         const textItem: Elem = {
             type: 'text',
             id: Number(Math.random().toFixed(3)),
-            text
+            text,
         }
         this.currentPage.elements.push(textItem)
     }
@@ -96,9 +102,26 @@ class CurrentBookStore {
         return this.pages[this.currentPageNumber] || {} as PageItem;
     }
 
-    @computed get countPages() {
+    @computed get nextPage(): PageItem {
+        return this.pages[this.currentPageNumber + 1]
+    }
+
+    @computed get countPages(): number {
         return this.pages.length
     }
+
+    @computed get firstPage(): PageItem {
+        return this.pages[this.currentPageNumber = 1]
+    }
+
+    @computed get lastPage(): PageItem {
+        return this.pages[this.currentPageNumber = this.pages.length - 1]
+    }
+
+    @action currentElement = (id: number, translate: number[]) => {
+        // return this.currentPage.elements.find(el => el.id === id).frame.translate = translate
+    }
+
 }
 
 export default new CurrentBookStore();

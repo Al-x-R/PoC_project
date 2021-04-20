@@ -1,6 +1,8 @@
 import React, {useState, useEffect, FC} from 'react';
 import Moveable from 'react-moveable';
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import {observer} from 'mobx-react-lite';
+import CurrentBookStore from '../../stores/сurrentBookStore'
 
 const pictureStyles = {
     width: '300px',
@@ -10,15 +12,17 @@ const pictureStyles = {
 
 export interface PictureProps {
     src: string
+    id: number
 }
 
-const Picture: FC<PictureProps> = ({src}) => {
+const Picture: FC<PictureProps> = observer(({id, src}) => {
     const [isSelected, setIsSelected] = useState(false)
     const [target, setTarget] = useState<HTMLImageElement | null>(null);
     const [frame] = useState({
         translate: [0, 0],
         rotate: 0
     });
+    // console.log(frame)
 
     useEffect(() => {
         const target = document.querySelector<HTMLImageElement>(".target");
@@ -42,11 +46,18 @@ const Picture: FC<PictureProps> = ({src}) => {
               rotatable={true}
               rotationPosition={"top"}
               throttleRotate={0}
-              onDragStart={({set}) => {
-                  set(frame.translate);
-              }}
+              // onDragStart={(e)=> {
+                  // console.log('set', e.set)
+                  // console.log('ondrag', {translate: {set}})
+              // }
+                  // ({set}) => {
+                  //     set(frame.translate)
+                  // }
+              // }
               onDrag={({beforeTranslate}) => {
+                  // console.log('beforeTranslate',beforeTranslate)
                   frame.translate = beforeTranslate;
+
               }}
               onResizeStart={({setOrigin, dragStart}) => {
                   setOrigin(["%", "%"]);
@@ -57,9 +68,11 @@ const Picture: FC<PictureProps> = ({src}) => {
                   target.style.width = `${width}px`;
                   target.style.height = `${height}px`;
               }}
-              onRotateStart={({set}) => {
-                  set(frame.rotate);
-              }}
+              onRotateStart={
+                  ({set}) => {
+                      set(frame.rotate)
+                  }
+              }
               onRotate={({beforeRotate}) => {
                   frame.rotate = beforeRotate;
               }}
@@ -72,6 +85,6 @@ const Picture: FC<PictureProps> = ({src}) => {
             }
         </div>
     );
-};
+});
 
 export default Picture;

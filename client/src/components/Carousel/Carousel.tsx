@@ -1,4 +1,5 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
+import {useLocation} from 'react-router-dom';
 import {Button} from '@material-ui/core';
 import {makeStyles} from "@material-ui/core";
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
@@ -17,19 +18,38 @@ const useStyles = makeStyles({
     },
     icon: {
         fontSize: 45
+    },
+    book: {
+        display: 'flex'
     }
 })
 
 const Carousel = observer(() => {
-    const classes = useStyles();
+        const classes = useStyles();
+        const [isReadBook, setIsReadBook] = useState(false)
+        const first = CurrentBookStore.firstPage
+        const last = CurrentBookStore.lastPage
 
-    return (
-        <div className={classes.mainBlock}>
-            <Button onClick={CurrentBookStore.decreasePage}><ArrowBackIosIcon className={classes.icon}/></Button>
-            <Page page={CurrentBookStore.currentPage}/>
-            <Button onClick={CurrentBookStore.increasePage}><ArrowForwardIosIcon className={classes.icon}/></Button>
-        </div>
-    );
-})
+        const location = useLocation();
+
+        useEffect(() => {
+            return setIsReadBook(location.pathname === '/');
+        }, [location.pathname]);
+
+        return (
+            <div className={classes.mainBlock}>
+                <Button onClick={CurrentBookStore.decreasePage}><ArrowBackIosIcon className={classes.icon}/></Button>
+                {isReadBook
+                    ? <div className={classes.book}>
+                        <Page page={CurrentBookStore.currentPage}/>
+                        <Page page={CurrentBookStore.nextPage}/>
+                    </div>
+                    : <Page page={CurrentBookStore.currentPage}/>
+                }
+                <Button onClick={CurrentBookStore.increasePage}><ArrowForwardIosIcon className={classes.icon}/></Button>
+            </div>
+        );
+    }
+)
 
 export default Carousel;
