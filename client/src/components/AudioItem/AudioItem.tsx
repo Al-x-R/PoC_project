@@ -24,7 +24,7 @@ const AudioItem: FC<AudioProps> = ({url, idx}) => {
     };
 
     useEffect(() => {
-        const target = document.querySelector<HTMLAudioElement>(`.targetAudio${idx}`);
+        const target = document.querySelector<HTMLAudioElement>(`.targetAudio`);
         setTarget(target);
     }, [idx]);
 
