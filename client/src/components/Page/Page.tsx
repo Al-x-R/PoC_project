@@ -37,9 +37,9 @@ const Page: FC<PropTypes> = observer(({page}) => {
                         {texts && texts.map((t, index) => {
                             return <TextComponent key={t.id} text={t.text} idx={index}/>
                         })}
-                        {audios && audios.map((item) => {
+                        {audios && audios.map((item, index) => {
                             // @ts-ignore
-                            return <AudioItem key={item.id} url={item.mediaBlobUrl}/>
+                            return <AudioItem key={item.id} url={item.mediaBlobUrl} idx={index}/>
                         })}
                     </Paper>
 
