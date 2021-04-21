@@ -1,5 +1,4 @@
 import React, {FC, useEffect, useState} from 'react';
-import Moveable from 'react-moveable';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import MoveableItem from "../MoveableItem/MoveableItem";
@@ -17,11 +16,12 @@ const AudioItem: FC<AudioProps> = ({url, idx}) => {
     const [audio] = useState(new Audio(url));
     const [target, setTarget] = useState<HTMLAudioElement | null>(null);
     const [playing, setPlaying] = useState(false);
+    const [isSelected, setIsSelected] = useState(false)
 
     const toggle = () => {
-        // if (isSelected) {
+        if (isSelected) {
             setPlaying(!playing)
-        // }
+        }
     };
 
     useEffect(() => {
@@ -43,7 +43,7 @@ const AudioItem: FC<AudioProps> = ({url, idx}) => {
     }, []);
 
     const audioItem = (
-            <div onClick={toggle} className="targetAudio">
+            <div onClick={toggle} className="targetAudio" >
                 {playing ? <PauseCircleOutlineIcon style={iconStyles} className="targetAudio"/> :
                     <VolumeUpIcon style={iconStyles} className="targetAudio"/>}
             </div>
@@ -51,7 +51,7 @@ const AudioItem: FC<AudioProps> = ({url, idx}) => {
 
 
     return (
-        <MoveableItem target={target} children={audioItem} />
+        <MoveableItem target={target} children={audioItem} isSelectedAudio={setIsSelected}/>
     );
 };
 

@@ -4,21 +4,32 @@ import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 interface Props {
     children: any,
-    target: any
+    target: any,
+    isSelectedAudio?: (value: boolean) => void
 }
 
-const MoveableItem: FC<Props> = ({children, target}) => {
+const MoveableItem: FC<Props> = ({children, target, isSelectedAudio}) => {
     const [isSelected, setIsSelected] = useState(false)
     const [frame] = useState({
         translate: [0, 0],
         rotate: 0
     });
 
+    const sendData = (value: boolean) => {
+        if (isSelectedAudio) {
+            isSelectedAudio(value)
+        }
+    }
+
     return (
         <div onClick={(e) => {
             setIsSelected(true)
+            sendData(true)
         }}>
-            <ClickAwayListener onClickAway={() => setIsSelected(false)}>
+            <ClickAwayListener onClickAway={() => {
+                setIsSelected(false)
+                sendData(false)
+            }}>
                 {children}
             </ClickAwayListener>
             {isSelected &&
