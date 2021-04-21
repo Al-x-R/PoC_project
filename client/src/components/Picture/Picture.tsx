@@ -46,14 +46,7 @@ const Picture: FC<PictureProps> = observer(({id, src}) => {
               rotatable={true}
               rotationPosition={"top"}
               throttleRotate={0}
-              // onDragStart={(e)=> {
-                  // console.log('set', e.set)
-                  // console.log('ondrag', {translate: {set}})
-              // }
-                  // ({set}) => {
-                  //     set(frame.translate)
-                  // }
-              // }
+              onDragStart={({set}) => set(frame.translate)}
               onDrag={({beforeTranslate}) => {
                   // console.log('beforeTranslate',beforeTranslate)
                   frame.translate = beforeTranslate;
