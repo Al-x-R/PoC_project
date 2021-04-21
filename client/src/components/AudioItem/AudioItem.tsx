@@ -25,7 +25,7 @@ const AudioItem: FC<AudioProps> = ({url, idx}) => {
     };
 
     useEffect(() => {
-        const target = document.querySelector<HTMLAudioElement>(`.targetAudio`);
+        const target = document.querySelector<HTMLAudioElement>(`.targetAudio${idx}`);
         setTarget(target);
     }, [idx]);
 
@@ -43,10 +43,18 @@ const AudioItem: FC<AudioProps> = ({url, idx}) => {
     }, []);
 
     const audioItem = (
-            <div onClick={toggle} className="targetAudio" >
-                {playing ? <PauseCircleOutlineIcon style={iconStyles} className="targetAudio"/> :
-                    <VolumeUpIcon style={iconStyles} className="targetAudio"/>}
-            </div>
+        <div className={`targetAudio${idx}`}>
+            {playing
+                ? <PauseCircleOutlineIcon style={iconStyles}
+                    // className={`targetAudio${idx}`}
+                                          onClick={toggle}
+                />
+                : <VolumeUpIcon style={iconStyles}
+                    // className={`targetAudio${idx}`}
+                                onClick={toggle}
+                />
+            }
+        </div>
     )
 
 
