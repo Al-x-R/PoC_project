@@ -1,4 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
+import Moveable from 'react-moveable';
 import VolumeUpIcon from '@material-ui/icons/VolumeUp';
 import PauseCircleOutlineIcon from '@material-ui/icons/PauseCircleOutline';
 import MoveableItem from "../MoveableItem/MoveableItem";
