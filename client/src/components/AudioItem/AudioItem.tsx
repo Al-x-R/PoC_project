@@ -56,8 +56,7 @@ const AudioItem: FC<AudioProps> = ({url, idx}) => {
             }
         </div>
     )
-
-
+    
     return (
         <MoveableItem target={target} children={audioItem} isSelectedAudio={setIsSelected}/>
     );

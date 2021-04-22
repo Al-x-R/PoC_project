@@ -1,49 +1,60 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import Page from '../Page/Page';
-import {makeStyles} from '@material-ui/core';
-import CurrentBookStore, {PageItem} from '../../stores/сurrentBookStore'
-import {useLocation} from "react-router-dom";
+import {Button, makeStyles} from '@material-ui/core';
+import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
+import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
+import CurrentBookStore from '../../stores/сurrentBookStore'
+import {observer} from "mobx-react-lite";
 
 const useStyles = makeStyles({
-
+    bookWrapper: {
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        width: '100%'
+    },
     book: {
-        display: 'flex'
-    }
+        width: 1000,
+        height: 500,
+        position: 'relative',
+        perspective: '2700px'
+    },
+    page: {
+        position: 'absolute',
+        border: '1px solid black',
+        top: 0,
+        left: '50%',
+        width: '500px',
+        height: '500px',
+        backfaceVisibility: 'hidden',
+        transform: 'rotateY(0deg)',
+
+        '&:hover': {
+            transform: 'rotateY(180deg)',
+            transition: 'transform .6s,opacity .6s,z-index .01s .15s,-webkit-transform .6s',
+            transformStyle: 'preserve-3d',
+            transformOrigin: 'left center'
+        },
+    },
+    icon: {
+        fontSize: 45,
+
+    },
 })
 
-export interface PropTypes {
-    page?: PageItem
-}
-
-const Book = () => {
+const Book = observer(() => {
     const classes = useStyles()
 
-    const nextPage = CurrentBookStore.nextPage
-    const nextPagePictures = nextPage?.elements?.filter(el => el.type === 'picture')
-    const nextPageTexts = nextPage?.elements?.filter(el => el.type === 'text')
-    const nextPageAudios = nextPage?.elements?.filter(el => el.type === 'audio')
-
-    const location = useLocation();
-    const [isReadBook, setIsReadBook] = useState(false)
-    const firstPage = CurrentBookStore.firstPage
-    const lastPage = CurrentBookStore.lastPage
-
-    useEffect(() => {
-        return setIsReadBook(location.pathname === '/');
-    }, [location.pathname]);
-
     return (
-        <div className={classes.book}>
-            {/*{isLast ? <div><Page/></div> :*/}
-            {/*    <div className={classes.book}>*/}
-            {/*        <Page/>*/}
-            {/*        <Page/>*/}
-            {/*    </div>*/}
-            {/*}*/}
+        <div className={classes.bookWrapper}>
+            <Button onClick={CurrentBookStore.decreasePage}><ArrowBackIosIcon className={classes.icon}/></Button>
+            <div className={classes.book}>
+                <Page page={CurrentBookStore.currentPage} pageStyles={classes.page}/>
+            </div>
+            <Button onClick={CurrentBookStore.increasePage}><ArrowForwardIosIcon className={classes.icon}/></Button>
         </div>
 
-
     );
-}
+})
 
 export default Book;

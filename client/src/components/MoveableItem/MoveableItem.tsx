@@ -3,7 +3,7 @@ import Moveable from "react-moveable";
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
 
 interface Props {
-    children: any,
+    children: JSX.Element | null,
     target: any,
     isSelectedAudio?: (value: boolean) => void
 }

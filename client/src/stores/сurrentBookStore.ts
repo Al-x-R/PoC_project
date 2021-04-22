@@ -110,13 +110,13 @@ class CurrentBookStore {
         return this.pages.length
     }
 
-    @computed get firstPage(): PageItem {
-        return this.pages[this.currentPageNumber = 1]
-    }
-
-    @computed get lastPage(): PageItem {
-        return this.pages[this.currentPageNumber = this.pages.length - 1]
-    }
+    // @computed get firstPage(): PageItem {
+    //     return this.pages[this.currentPageNumber = 1]
+    // }
+    //
+    // @computed get lastPage(): PageItem {
+    //     return this.pages[this.currentPageNumber = this.pages.length - 1]
+    // }
 
     @action currentElement = (id: number, translate: number[]) => {
         // return this.currentPage.elements.find(el => el.id === id).frame.translate = translate

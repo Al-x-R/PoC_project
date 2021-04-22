@@ -1,4 +1,4 @@
-import React, {FC} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import Paper from '@material-ui/core/Paper';
 import Picture from '../Picture/Picture';
 import TextComponent from '../Text/TextComponent';
@@ -7,29 +7,30 @@ import {observer} from 'mobx-react-lite';
 import AudioItem from "../AudioItem/AudioItem";
 import {PageItem} from '../../stores/сurrentBookStore';
 import CurrentBookStore from '../../stores/сurrentBookStore';
-
-const paperStyle = {
-    width: '500px',
-    height: '500px',
-    border: 'solid',
-    // overflow: 'hidden'
-}
+import {useLocation} from "react-router-dom";
 
 export interface PropTypes {
-    page?: PageItem
+    page?: PageItem;
+    pageStyles: string
 }
 
-const Page: FC<PropTypes> = observer(({page}) => {
+const Page: FC<PropTypes> = observer(({page, pageStyles}) => {
     const pictures = page?.elements?.filter(el => el.type === 'picture')
     const texts = page?.elements?.filter(el => el.type === 'text')
     const audios = page?.elements?.filter(el => el.type === 'audio')
 
+    const location = useLocation();
+    const [isReadBook, setIsReadBook] = useState(false)
+
+    useEffect(() => {
+        return setIsReadBook(location.pathname === '/');
+    }, [location.pathname]);
+
     return (
         <div>
 
-            {/*{!isReadBook && <div>Current page id is {page?.pageNumber} of {CurrentBookStore.countPages}</div>}*/}
-            <div>Current page id is {page?.pageNumber} of {CurrentBookStore.countPages}</div>
-                    <Paper style={paperStyle}>
+            {!isReadBook && <div>Current page id is {page?.pageNumber} of {CurrentBookStore.countPages}</div>}
+                    <Paper className={pageStyles}>
                         {pictures && pictures.map(pic => (
                             // @ts-ignore
                             <Picture key={pic.id} id={pic.id} src={pic.url}/>

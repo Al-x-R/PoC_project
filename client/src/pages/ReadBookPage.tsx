@@ -1,11 +1,12 @@
 import React, {useEffect} from 'react';
 import TopBar from "../components/TopBar/TopBar";
 import {makeStyles} from '@material-ui/core/styles';
-import Carousel from "../components/Carousel/Carousel";
 import CurrentBookStore from "../stores/сurrentBookStore";
+import Book from "../components/Book/Book";
+import {observer} from "mobx-react-lite";
 
 const useStyles = makeStyles({
-    book: {
+    bookWrapper: {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -14,7 +15,7 @@ const useStyles = makeStyles({
 });
 
 
-const ReadBookPage = () => {
+const ReadBookPage = observer(() => {
     const classes = useStyles();
 
     useEffect(() => {
@@ -24,15 +25,15 @@ const ReadBookPage = () => {
     return (
         <div>
          <TopBar />
-         <div className={classes.book}>
+         <div className={classes.bookWrapper}>
              {
                  CurrentBookStore.isLoading
                      ? <div>Loading...</div>
-                     : <Carousel/>
+                     : <Book/>
              }
          </div>
         </div>
     );
-};
+});
 
 export default ReadBookPage;
