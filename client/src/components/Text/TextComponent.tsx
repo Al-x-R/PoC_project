@@ -5,9 +5,10 @@ import MoveableItem from "../MoveableItem/MoveableItem";
 export type TextProps = {
     idx: number
     text?: string;
+    id: number
 }
 
-const TextComponent: FC<TextProps> = ({idx, text}) => {
+const TextComponent: FC<TextProps> = ({idx, text, id}) => {
     const [target, setTarget] = useState<NodeListOf<HTMLElement> | null>(null);
 
     const createMarkup = (html: string | undefined) => {
@@ -30,7 +31,7 @@ const TextComponent: FC<TextProps> = ({idx, text}) => {
     )
 
     return (
-        <MoveableItem target={target} children={textItem} />
+        <MoveableItem target={target} children={textItem} id={id} />
     );
 };
 

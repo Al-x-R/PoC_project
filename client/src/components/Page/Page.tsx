@@ -33,14 +33,14 @@ const Page: FC<PropTypes> = observer(({page, pageStyles}) => {
                     <Paper className={pageStyles}>
                         {pictures && pictures.map(pic => (
                             // @ts-ignore
-                            <Picture key={pic.id} id={pic.id} src={pic.url}/>
+                            <Picture key={pic.id} id={pic.id} src={pic.url} id={pic.id}/>
                         ))}
                         {texts && texts.map((t, index) => {
-                            return <TextComponent key={t.id} text={t.text} idx={index}/>
+                            return <TextComponent key={t.id} text={t.text} idx={index} id={t.id}/>
                         })}
                         {audios && audios.map((item, index) => {
                             // @ts-ignore
-                            return <AudioItem key={item.id} url={item.mediaBlobUrl} idx={index}/>
+                            return <AudioItem key={item.id} url={item.mediaBlobUrl} idx={index} id={item.id}/>
                         })}
                     </Paper>
 

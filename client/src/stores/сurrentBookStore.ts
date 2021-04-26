@@ -16,12 +16,14 @@ export interface Elem {
     text?: string;
     url?: string;
     alt?: string;
-    frame?: Frame
+    frame?: Frame;
 }
 
 interface Frame {
-    translate: number[]
-    rotate: number
+    translate: number[];
+    rotate: number;
+    width: number;
+    height: number;
 }
 
 class CurrentBookStore {
@@ -110,16 +112,22 @@ class CurrentBookStore {
         return this.pages.length
     }
 
-    // @computed get firstPage(): PageItem {
-    //     return this.pages[this.currentPageNumber = 1]
-    // }
-    //
-    // @computed get lastPage(): PageItem {
-    //     return this.pages[this.currentPageNumber = this.pages.length - 1]
-    // }
+    @action currentElementUpdateTranslate = (id: number, translate: number[]) => {
+        console.log(id, translate)
+        // this.currentPage.elements.find(el => el.id === id)?.frame.translate
+        // elem.frame?.translate = translate
+    }
 
-    @action currentElement = (id: number, translate: number[]) => {
-        // return this.currentPage.elements.find(el => el.id === id).frame.translate = translate
+    @action currentElementUpdateRotate= (id: number, rotate: number) => {
+        console.log(id, rotate)
+        // this.currentPage.elements.find(el => el.id === id)?.frame.translate
+        // elem.frame?.translate = translate
+    }
+
+    @action currentElementUpdateSizes = (id: number, width: number, height: number) => {
+        console.log(id, width, height)
+        // this.currentPage.elements.find(el => el.id === id)?.frame.translate
+        // elem.frame?.translate = translate
     }
 
 }

@@ -9,10 +9,11 @@ const iconStyles = {
 
 export interface AudioProps {
     url: string,
-    idx: number
+    idx: number,
+    id: number
 }
 
-const AudioItem: FC<AudioProps> = ({url, idx}) => {
+const AudioItem: FC<AudioProps> = ({url, idx, id}) => {
     const [audio] = useState(new Audio(url));
     const [target, setTarget] = useState<HTMLAudioElement | null>(null);
     const [playing, setPlaying] = useState(false);
@@ -58,7 +59,7 @@ const AudioItem: FC<AudioProps> = ({url, idx}) => {
     )
     
     return (
-        <MoveableItem target={target} children={audioItem} isSelectedAudio={setIsSelected}/>
+        <MoveableItem target={target} children={audioItem} isSelectedAudio={setIsSelected} id={id}/>
     );
 };
 

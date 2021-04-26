@@ -28,7 +28,7 @@ const Picture: FC<PictureProps> = observer(({id, src}) => {
     )
 
     return (
-        <MoveableItem target={target} children={pictureItem} />
+        <MoveableItem target={target} children={pictureItem} id={id}/>
     );
 });
 

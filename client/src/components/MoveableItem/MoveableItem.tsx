@@ -1,19 +1,23 @@
 import React, {FC, useState} from 'react';
 import Moveable from "react-moveable";
 import ClickAwayListener from '@material-ui/core/ClickAwayListener';
+import CurrentBookStore from '../../stores/сurrentBookStore'
 
 interface Props {
     children: JSX.Element | null,
     target: any,
-    isSelectedAudio?: (value: boolean) => void
+    isSelectedAudio?: (value: boolean) => void,
+    id: number
 }
 
-const MoveableItem: FC<Props> = ({children, target, isSelectedAudio}) => {
+const MoveableItem: FC<Props> = ({children, target, isSelectedAudio, id}) => {
     const [isSelected, setIsSelected] = useState(false)
     const [frame] = useState({
         translate: [0, 0],
         rotate: 0
     });
+
+    console.log('target ', target.style.transform)
 
     const sendData = (value: boolean) => {
         if (isSelectedAudio) {
@@ -42,11 +46,15 @@ const MoveableItem: FC<Props> = ({children, target, isSelectedAudio}) => {
               rotatable={true}
               rotationPosition={"top"}
               throttleRotate={0}
-              onDragStart={({set}) => {
-                  set(frame.translate);
-              }}
+              onDragStart={(e) => console.log(e)
+              //     ({set}) => {
+              //     set(frame.translate);
+              //     console.log(set)
+              // }
+              }
               onDrag={({beforeTranslate}) => {
-                  frame.translate = beforeTranslate;
+                  // frame.translate = beforeTranslate;
+                  CurrentBookStore.currentElementUpdateTranslate(id, beforeTranslate)
               }}
               onResizeStart={({setOrigin, dragStart}) => {
                   setOrigin(["%", "%"]);
@@ -61,7 +69,9 @@ const MoveableItem: FC<Props> = ({children, target, isSelectedAudio}) => {
                   set(frame.rotate);
               }}
               onRotate={({beforeRotate}) => {
-                  frame.rotate = beforeRotate;
+                  // frame.rotate = beforeRotate;
+                  console.log(typeof beforeRotate)
+                  CurrentBookStore.currentElementUpdateRotate(id, beforeRotate)
               }}
               onRender={({target}) => {
                   target.style.transform = `translate(${frame.translate[0]}px, ${

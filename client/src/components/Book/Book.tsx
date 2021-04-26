@@ -53,7 +53,6 @@ const Book = observer(() => {
             </div>
             <Button onClick={CurrentBookStore.increasePage}><ArrowForwardIosIcon className={classes.icon}/></Button>
         </div>
-
     );
 })
 
